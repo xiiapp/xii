@@ -1,1 +1,11 @@
 .idea/
+
+/dev/
+
+/data/composer/
+/data/mysql/
+
+/logs/letsencrypt/
+/logs/mysql80/
+/logs/nginx/
+/logs/php80/
