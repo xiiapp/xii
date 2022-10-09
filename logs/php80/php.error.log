@@ -1,0 +1,29 @@
+[08-Oct-2022 16:28:33 Asia/Shanghai] PHP Parse error:  syntax error, unexpected end of file in Command line code on line 1
+[08-Oct-2022 17:19:12 Asia/Shanghai] PHP Fatal error:  Uncaught Error: Call to undefined function phpinf() in /www/localhost/index.php:3
+Stack trace:
+#0 {main}
+  thrown in /www/localhost/index.php on line 3
+[08-Oct-2022 17:19:13 Asia/Shanghai] PHP Fatal error:  Uncaught Error: Call to undefined function phpinf() in /www/localhost/index.php:3
+Stack trace:
+#0 {main}
+  thrown in /www/localhost/index.php on line 3
+[08-Oct-2022 17:19:14 Asia/Shanghai] PHP Fatal error:  Uncaught Error: Call to undefined function phpinf() in /www/localhost/index.php:3
+Stack trace:
+#0 {main}
+  thrown in /www/localhost/index.php on line 3
+[08-Oct-2022 17:19:37 Asia/Shanghai] PHP Fatal error:  Uncaught Error: Call to undefined function phpinf() in /www/localhost/index.php:3
+Stack trace:
+#0 {main}
+  thrown in /www/localhost/index.php on line 3
+[08-Oct-2022 17:19:42 Asia/Shanghai] PHP Fatal error:  Uncaught Error: Call to undefined function phpinf() in /www/localhost/index.php:3
+Stack trace:
+#0 {main}
+  thrown in /www/localhost/index.php on line 3
+[08-Oct-2022 17:20:58 Asia/Shanghai] PHP Fatal error:  Uncaught Error: Call to undefined function phpinf() in /www/localhost/index.php:3
+Stack trace:
+#0 {main}
+  thrown in /www/localhost/index.php on line 3
+[08-Oct-2022 17:21:09 Asia/Shanghai] PHP Fatal error:  Uncaught Error: Call to undefined function phpinf0() in /www/localhost/index.php:3
+Stack trace:
+#0 {main}
+  thrown in /www/localhost/index.php on line 3

@@ -1,0 +1,5 @@
+2022/10/08 17:18:44 [error] 21#21: *2 "/www/localhost/index.php" is not found (2: No such file or directory), client: 172.22.0.1, server: localhost, request: "GET / HTTP/1.1", host: "localhost"
+2022/10/08 17:18:44 [error] 21#21: *2 open() "/www/localhost/favicon.ico" failed (2: No such file or directory), client: 172.22.0.1, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "localhost", referrer: "http://localhost/"
+2022/10/08 17:47:19 [error] 31#31: *6 open() "/www/localhost/favicon.ico" failed (2: No such file or directory), client: 172.27.0.1, server: localhost, request: "GET /favicon.ico HTTP/2.0", host: "localhost", referrer: "https://localhost/index.php"
+2022/10/09 13:30:15 [error] 24#24: *2 open() "/www/localhost/favicon.ico" failed (2: No such file or directory), client: 172.28.0.1, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "127.0.0.1", referrer: "http://127.0.0.1/"
+2022/10/09 15:05:35 [error] 32#32: *3 open() "/www/localhost/favicon.ico" failed (2: No such file or directory), client: 172.30.0.1, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "localhost", referrer: "http://localhost/"
