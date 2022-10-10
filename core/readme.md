@@ -1,2 +1,1 @@
-为之后的可视化程序预留目录。
-
+# GoFrame Template For SingleRepo
