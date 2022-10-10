@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+	"os"
+	"path/filepath"
 
 	_ "core/internal/packed"
 	"github.com/AlecAivazis/survey/v2"
@@ -13,6 +15,7 @@ import (
 )
 
 func main() {
+
 	// go cmd.Main.Run(gctx.New())
 	v, e := AskForVhost()
 	if e != nil {
@@ -50,6 +53,14 @@ type Vhost struct {
 	Security         bool // 是否开启安全头
 	DisableHtmlCache bool // 是否禁用html缓存
 
+}
+
+func (v *Vhost) getFolderToCreate() []string {
+	f := []string{
+		"logs/nginx/" + v.Domain,
+		"www/" + v.Domain,
+	}
+	return f
 }
 
 // 获取302跳转到https的配置
@@ -323,4 +334,10 @@ func rewriteRules() []string {
 		rewriteRules = append(rewriteRules, gfile.Name(v))
 	}
 	return rewriteRules
+}
+
+// 获取项目所在目录
+func getProjectFolder() string {
+	curPath, _ := os.Executable()
+	return filepath.Dir(filepath.Dir(curPath))
 }

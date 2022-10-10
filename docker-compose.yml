@@ -15,6 +15,7 @@ services:
       - ${SOURCE_DIR}:/www/:rw
       - ${NGINX_SSL_CERTIFICATE_DIR}:/etc/nginx/ssl:rw
       - ${NGINX_REWRITE_DIR}:/etc/nginx/rewrite:rw
+      - ${NGINX_OTHER_DIR}:/etc/nginx/other:rw
       - ${NGINX_VHOST_DIR}:/etc/nginx/vhost/:rw
       - ${NGINX_CONF_FILE}:/etc/nginx/nginx.conf:ro
       - ${NGINX_FASTCGI_PHP_CONF}:/etc/nginx/fastcgi-php.conf:ro
