@@ -29,6 +29,11 @@ type Vhost struct {
 
 	PathInfo bool   // 是否开启pathinfo
 	Rewrite  string // 重写规则
+
+	IsLog bool  // 是否开启日志
+	AccessLog string        // 访问日志
+	AccessLogFormat string   // 访问日志格式,默认main，还有一个选择是cloudflare
+	ErrorLog  string // 错误日志
 }
 
 func (v *Vhost) Get80Str() string {
