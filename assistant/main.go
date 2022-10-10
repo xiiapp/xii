@@ -5,12 +5,10 @@ import (
 	"os"
 	"path/filepath"
 
-	_ "core/internal/packed"
+	_ "assistant/internal/packed"
 	"github.com/AlecAivazis/survey/v2"
 	"github.com/gogf/gf/v2/os/gfile"
 	"github.com/tufanbarisyildirim/gonginx"
-
-	_ "github.com/tufanbarisyildirim/gonginx"
 	"github.com/tufanbarisyildirim/gonginx/parser"
 )
 
@@ -53,16 +51,6 @@ type Vhost struct {
 	Security         bool // 是否开启安全头
 	DisableHtmlCache bool // 是否禁用html缓存
 
-}
-
-// 根据vhost信息生成文件夹等
-func (v *Vhost) createFolder() []string {
-	p := getProjectFolder()
-	f := []string{
-		p + "/logs/nginx/" + v.Domain,
-		p + "/www/" + v.Domain,
-	}
-	return f
 }
 
 // 获取302跳转到https的配置
@@ -342,4 +330,16 @@ func rewriteRules() []string {
 func getProjectFolder() string {
 	curPath, _ := os.Executable()
 	return filepath.Dir(filepath.Dir(curPath))
+}
+
+// 根据vhost信息生成文件夹等
+func (v *Vhost) createFolder() {
+	p := getProjectFolder()
+	f := []string{
+		p + "/logs/nginx/" + v.Domain,
+		p + "/www/" + v.Domain,
+	}
+	for _, v := range f {
+		gfile.Mkdir(v)
+	}
 }

@@ -1,4 +1,4 @@
-module core
+module assistant
 
 go 1.18
 

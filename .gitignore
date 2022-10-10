@@ -2,11 +2,12 @@
 
 /dev/
 
+/data/
 /data/composer/
 /data/mysql/
 
+/logs/
 /logs/letsencrypt/
 /logs/mysql80/
 /logs/nginx/
 /logs/php80/
-/dev/
