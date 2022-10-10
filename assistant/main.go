@@ -55,10 +55,12 @@ type Vhost struct {
 
 }
 
-func (v *Vhost) getFolderToCreate() []string {
+// 根据vhost信息生成文件夹等
+func (v *Vhost) createFolder() []string {
+	p := getProjectFolder()
 	f := []string{
-		"logs/nginx/" + v.Domain,
-		"www/" + v.Domain,
+		p + "/logs/nginx/" + v.Domain,
+		p + "/www/" + v.Domain,
 	}
 	return f
 }
