@@ -2,7 +2,9 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"os"
+	"os/exec"
 	"path/filepath"
 
 	_ "assistant/internal/packed"
@@ -13,6 +15,10 @@ import (
 )
 
 func main() {
+
+	v := &Vhost{}
+	v.createSsl()
+	os.Exit(0)
 
 	// go cmd.Main.Run(gctx.New())
 	v, e := AskForVhost()
@@ -51,6 +57,18 @@ type Vhost struct {
 	Security         bool // 是否开启安全头
 	DisableHtmlCache bool // 是否禁用html缓存
 
+}
+
+// 生成证书
+func (v *Vhost) createSsl() {
+	// out, err := exec.Command("ls", "-l").Output()
+	out, err := exec.Command("docker", "exec -it nginx /bin/sh ~/.acme.sh/acme.sh --issue -d docker.mallka.com --webroot /www/localhost").Output()
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println(string(out))
 }
 
 // 获取302跳转到https的配置
@@ -338,6 +356,7 @@ func (v *Vhost) createFolder() {
 	f := []string{
 		p + "/logs/nginx/" + v.Domain,
 		p + "/www/" + v.Domain,
+		p + "/env/nginx/ssl/" + v.Domain,
 	}
 	for _, v := range f {
 		gfile.Mkdir(v)
