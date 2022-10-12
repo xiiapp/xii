@@ -1,13 +1,14 @@
 #!/bin/bash
 
-# Install wget
-if command -v wget >/dev/null 2>&1; then
-  echo 'wget already installed.Exit'
+# Install Git
+if command -v git >/dev/null 2>&1; then
+  echo 'Git already installed.Exit'
 else
-  yum install -y wget
-  apt-get install -y wget
-  apk add wget
+  yum install -y git
+  apt-get install -y git
+  apk add git
 fi
+
 
 
 # Install docker
@@ -38,12 +39,20 @@ fi
 
 
 # Create Floder
-cd /home
-if [  -d "./xii" ] ; then
+if [ "$(uname)" == "Darwin" ] ; then
+  cd ~
+else
+  cd /home
+fi
+
+
+if [  -d "xii" ] ; then
   mv xii xii.bakup.$RANDOM
 fi
-git clone https://github.com/xiiapp/xii.git
+git clone -n  https://github.com/xiiapp/xii.git
+mkdir xii
 cd xii
+git checkout main release/xii_mac.zip  aaa.zip
 echo "  "
 echo "  "
 echo "  "
