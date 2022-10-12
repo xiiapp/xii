@@ -1,17 +1,26 @@
 package main
 
 import (
-	"fmt"
-	"log"
-	"os/exec"
+	"github.com/gogf/gf/v2/os/gproc"
 )
 
 func main() {
-	out, err := exec.Command("docker", "exec -it nginx /bin/sh ~/.acme.sh/acme.sh --issue -d docker.mallka.com --webroot /www/localhost").Output()
+	// r, _ := ContainerName()
+	// fmt.Printf("%+v", r)
+	// r, _ := DockerAction("stop", "nginx")
+	// fmt.Printf("%+v", r)
+}
 
-	if err != nil {
-		log.Fatal(err)
-	}
+//
+// func ContainerName() ([]string, error) {
+// 	r, e := gproc.ShellExec(`docker inspect --format='{{.Name}}' $(sudo docker ps -aq --no-trunc) | cut -c2-`)
+// 	if e != nil {
+// 		return nil, e
+// 	}
+// 	result := gstr.SplitAndTrim(r, "\n")
+// 	return result, nil
+// }
 
-	fmt.Println(string(out))
+func DockerAction(action string, arg string) (string, error) {
+	return gproc.ShellExec(`docker-compose ` + action + ` ` + arg)
 }
