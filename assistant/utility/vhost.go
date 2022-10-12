@@ -329,6 +329,10 @@ func (v *Vhost) AddVhost() {
 
 // AskForVhost cli交互获取Vhost信息
 func AskForVhost() (vh *Vhost, e error) {
+	fmt.Println("  ")
+	fmt.Printf("\033[34m注意：如果你生成的是php网站，当前助手程序默认指定的是php80，端口号为9000的镜像，\n如果你需要使用其他版本的php容器，请生成后手动调整下env/nginx/vhost/域名.conf中的fastcgi_pass php80:9000;为你需要的php版本,并重启nginx\033[0m")
+	fmt.Println("\n  ")
+
 	vhost := Vhost{}
 	var qs = []*survey.Question{
 		{
