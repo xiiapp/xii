@@ -1,8 +1,7 @@
 name: build
-on: 
-  push: 
-    branches: 
-      - main # 这里表示push到main分支就会触发流程
+on:
+  release:
+    types: [published] #发布时触发
 jobs:
   build-and-deploy:
     runs-on: ubuntu-20.04
