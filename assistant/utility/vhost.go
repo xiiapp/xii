@@ -225,7 +225,7 @@ func (v *Vhost) getServerBlock(port string) string {
 func (v *Vhost) AddVhost() {
 	// @todo:告知用户操作流程
 
-	fmt.Printf("%+v", v)
+	// fmt.Printf("%+v", v)
 
 	// 1.先检测ssl和域名是否存在
 	if !gfile.Exists("env/nginx/vhost/" + v.Domain + ".conf") {
@@ -400,6 +400,7 @@ func AskForVhost() (vh *Vhost, e error) {
 		},
 	}
 	if err := survey.Ask(qs, &vhost); err != nil {
+		os.Exit(1)
 		return nil, err
 	}
 

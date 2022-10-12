@@ -3,9 +3,12 @@ package cmd
 import (
 	"context"
 	"fmt"
+	"os"
 
 	"assistant/utility"
+	"github.com/AlecAivazis/survey/v2"
 	"github.com/gogf/gf/v2/os/gcmd"
+	"github.com/gogf/gf/v2/os/gfile"
 )
 
 var (
@@ -39,10 +42,31 @@ var (
 	}
 	VhostDelCmd = &gcmd.Command{
 		Name:  "del",
-		Usage: "删除网站: xii vhost del",
+		Usage: "删除网站(只删除nginx配置信息,日志): xii vhost del",
 		Brief: "删除网站",
 		Func: func(ctx context.Context, parser *gcmd.Parser) (err error) {
-			fmt.Println("todo")
+			none := "不删除任何网站"
+			websites := []string{none}
+			site := ""
+			rset, _ := gfile.ScanDir("/Users/mou/goProjects/xii/env/nginx/vhost", "*.conf")
+			for _, v := range rset {
+				websites = append(websites, gfile.Name(v))
+			}
+			alf := &survey.Select{
+				Message: "请选择一个网站进行删除:",
+				Options: websites,
+			}
+			survey.AskOne(alf, &site)
+			if site == none {
+				fmt.Println("你已取消操作")
+				os.Exit(0)
+			}
+
+			gfile.Remove("/Users/mou/goProjects/xii/env/nginx/vhost/" + site + ".conf")
+			gfile.Remove("/Users/mou/goProjects/xii/env/nginx/ssl/" + site)
+			gfile.Remove("/Users/mou/goProjects/xii/logs/nginx/" + site)
+			fmt.Println("删除网站成功，如需删除网站文件，请自行删除")
+
 			return nil
 		},
 	}
@@ -51,7 +75,12 @@ var (
 		Usage: "查看所有网站: xii vhost list",
 		Brief: "查看所有网站",
 		Func: func(ctx context.Context, parser *gcmd.Parser) (err error) {
-			fmt.Println("todo")
+			// rewriteRules := []string{"none"}
+			rset, _ := gfile.ScanDir("/Users/mou/goProjects/xii/env/nginx/vhost", "*.conf")
+			for _, v := range rset {
+				// rewriteRules = append(rewriteRules, gfile.Name(v))
+				fmt.Println(gfile.Name(v))
+			}
 			return nil
 		},
 	}

@@ -194,7 +194,7 @@ services:
 
 # ELK环境，于我暂时没有用处，不理才是幸福
 # 留着配置的原因很简单，就是希望有一天能给个小助手，自动选择组合
-
+#
 #  elasticsearch:
 #    build:
 #      context: ./env/elasticsearch

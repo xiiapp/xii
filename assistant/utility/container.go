@@ -5,6 +5,9 @@
 package utility
 
 import (
+	"os"
+	"os/exec"
+
 	"github.com/gogf/gf/v2/os/gproc"
 	"github.com/gogf/gf/v2/text/gstr"
 )
@@ -61,4 +64,13 @@ func IsContainerLive(container string) bool {
 		return false
 	}
 	return true
+}
+
+// Enter 快捷进入某个容器
+func Enter(container string) {
+	cmd := exec.Command("docker", "exec", "-it", container, "/bin/sh")
+	cmd.Stdin = os.Stdin
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	cmd.Run()
 }
