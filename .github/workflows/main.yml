@@ -1,7 +1,7 @@
 name: build
 on:
   release:
-    types: [released] #预发布时出发
+    types: [prereleased] #预发布时出发
 jobs:
   build-and-deploy:
     runs-on: ubuntu-20.04
