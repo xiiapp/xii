@@ -22,7 +22,7 @@ services:
       - ${NGINX_FASTCGI_PARAMS}:/etc/nginx/fastcgi_params:ro
       - ${NGINX_DHPARAM_PARAMS}:/etc/nginx/dhparam.pem:rw
       - ${NGINX_LOG_DIR}:/var/log/nginx/:rw
-      - ${NGINX_ACME_DIR}:~/.acme.sh /:rw
+      - ${NGINX_ACME_DIR}:/root/.acme.sh /:rw
     environment:
       TZ: "$TZ"
     restart: always
@@ -31,7 +31,7 @@ services:
   php80:
     build:
       context: ./env/php80
-      args:
+      args:vo
         PHP_VERSION: php:${PHP80_VERSION}-fpm-alpine3.13
         CONTAINER_PACKAGE_URL: ${CONTAINER_PACKAGE_URL}
         PHP_EXTENSIONS: ${PHP80_EXTENSIONS}
