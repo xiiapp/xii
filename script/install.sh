@@ -41,18 +41,53 @@ fi
 # Create Floder
 if [ "$(uname)" == "Darwin" ] ; then
   cd ~
+
+  if [  -d "xii" ] ; then
+    mv xii xii.bakup.$RANDOM
+  fi
+  git clone -n  https://github.com/xiiapp/xii.git
+  mkdir xii
+  cd xii
+  git checkout main -- release/xii_mac.zip
+  mv  -f ~/xii/release/xii_mac.zip ~/xii/xii.zip
+  unzip xii.zip -d ./
+  mv -f ~/xii/mac/* ./
+  rm -rf ~/xii/release
+  rm -f ~/xii/xii.zip
+  mv -f ~/xii/mac ~/xii/
+  chmod +x ~/xii/xii
+  ln -s ~/xii/xii /usr/local/bin/xii
+  ln -s ~/xii/xii /usr/local/bin/xxi
+
 else
   cd /home
+
+  if [  -d "xii" ] ; then
+    mv xii xii.bakup.$RANDOM
+  fi
+  git clone -n  https://github.com/xiiapp/xii.git
+  mkdir xii
+  cd xii
+  git checkout main -- release/xii_linux.zip
+  mv  -f /home/xii/release/xii_linux.zip /home/xii/xii.zip
+  unzip xii.zip -d ./
+  mv -f /home/xii/linux/* ./
+  rm -rf /home/xii/release
+  rm -f /home/xii/xii.zip
+  mv -f /home/xii/linux /home/xii/
+  chmod +x /home/xii/xii
+  ln -s /home/xii/xii /usr/local/bin/xii
+  ln -s /home/xii/xii /usr/local/bin/xxi
+
 fi
 
 
-if [  -d "xii" ] ; then
-  mv xii xii.bakup.$RANDOM
-fi
-git clone -n  https://github.com/xiiapp/xii.git
-mkdir xii
-cd xii
-git checkout main release/xii_mac.zip  aaa.zip
+
+
+
+
+
+mv
 echo "  "
 echo "  "
 echo "  "

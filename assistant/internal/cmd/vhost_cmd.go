@@ -48,7 +48,7 @@ var (
 			none := "不删除任何网站"
 			websites := []string{none}
 			site := ""
-			rset, _ := gfile.ScanDir("/Users/mou/goProjects/xii/env/nginx/vhost", "*.conf")
+			rset, _ := gfile.ScanDir(utility.GetInstallDir()+"/env/nginx/vhost", "*.conf")
 			for _, v := range rset {
 				websites = append(websites, gfile.Name(v))
 			}
@@ -62,9 +62,9 @@ var (
 				os.Exit(0)
 			}
 
-			gfile.Remove("/Users/mou/goProjects/xii/env/nginx/vhost/" + site + ".conf")
-			gfile.Remove("/Users/mou/goProjects/xii/env/nginx/ssl/" + site)
-			gfile.Remove("/Users/mou/goProjects/xii/logs/nginx/" + site)
+			gfile.Remove(utility.GetInstallDir() + "/env/nginx/vhost/" + site + ".conf")
+			gfile.Remove(utility.GetInstallDir() + "env/nginx/ssl/" + site)
+			gfile.Remove(utility.GetInstallDir() + "logs/nginx/" + site)
 			fmt.Println("删除网站成功，如需删除网站文件，请自行删除")
 
 			return nil
@@ -76,7 +76,7 @@ var (
 		Brief: "查看所有网站",
 		Func: func(ctx context.Context, parser *gcmd.Parser) (err error) {
 			// rewriteRules := []string{"none"}
-			rset, _ := gfile.ScanDir("/Users/mou/goProjects/xii/env/nginx/vhost", "*.conf")
+			rset, _ := gfile.ScanDir(utility.GetInstallDir()+"env/nginx/vhost", "*.conf")
 			for _, v := range rset {
 				// rewriteRules = append(rewriteRules, gfile.Name(v))
 				fmt.Println(gfile.Name(v))

@@ -36,6 +36,7 @@ var (
 			}
 
 			d := utility.Docker{}
+			d.Auto()
 			s, e := d.ContainerName()
 			if e != nil {
 				fmt.Println(e.Error())

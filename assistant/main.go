@@ -36,9 +36,7 @@ func main() {
 	Main.Run(gctx.New())
 }
 
-// SetupCloseHandler 在一个新的 goroutine 上创建一个监听器。
-// 如果接收到了一个 interrupt 信号，就会立即通知程序，做一些清理工作并退出
-// 这段代码是抄了，不是我写的
+// SetupCloseHandler
 // ref:twle.cn/t/381
 func SetupCloseHandler() {
 	c := make(chan os.Signal, 2)

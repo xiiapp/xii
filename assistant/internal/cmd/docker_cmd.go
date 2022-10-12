@@ -8,9 +8,6 @@ import (
 	"github.com/gogf/gf/v2/os/gcmd"
 )
 
-// for dev
-var DcFile = "/Users/mou/goProjects/xii/docker-compose.yml"
-
 var (
 	UpCmd = &gcmd.Command{
 		Name:  "up",
@@ -104,14 +101,16 @@ func dockerComposeRun(typ string, parser *gcmd.Parser) {
 		}
 	}
 
-	dstr := ""
-	if false {
-		dstr = d
-	}
-	if len(containers) > 0 {
-		dstr = dstr + " " + strings.Join(containers, " ")
+	dstr := []string{}
+	if d != "" {
+		dstr = append(dstr, "-d")
 	}
 
-	docker := utility.Docker{ComposeFile: DcFile}
-	docker.DockerAction("up", dstr)
+	if len(containers) > 0 {
+		dstr = append(dstr, containers...)
+	}
+
+	docker := utility.Docker{}
+	docker.Auto()
+	docker.DockerActionShell("up", dstr)
 }
