@@ -228,7 +228,7 @@ func (v *Vhost) AddVhost() {
 	// fmt.Printf("%+v", v)
 
 	// 1.先检测ssl和域名是否存在
-	if !gfile.Exists("env/nginx/vhost/" + v.Domain + ".conf") {
+	if gfile.Exists("env/nginx/vhost/" + v.Domain + ".conf") {
 		or := false
 		prompt := &survey.Confirm{
 			Message: "存在同名配置文件，是否要覆盖，配置文件路径:" + "env/nginx/vhost/" + v.Domain + ".conf",
@@ -242,7 +242,7 @@ func (v *Vhost) AddVhost() {
 			os.Exit(0)
 		}
 	}
-	if !gfile.Exists("env/nginx/ssl/" + v.Domain) {
+	if gfile.Exists("env/nginx/ssl/" + v.Domain) {
 		or := false
 		prompt := &survey.Confirm{
 			Message: "发现储存SSL配置目录，如继续将删除该存放ssl证书的目录。目录路径:" + "env/nginx/ssl/" + v.Domain,
@@ -268,7 +268,11 @@ func (v *Vhost) AddVhost() {
 		gfile.Mkdir(v.Root)
 	}
 	str80 := v.getServerBlock("80")
-	gfile.PutContents("env/nginx/vhost/"+v.Domain+".conf", str80)
+	err := gfile.PutContents("env/nginx/vhost/"+v.Domain+".conf", str80)
+	if err != nil {
+		fmt.Println("生成网站配置文件失败，错误信息：")
+		os.Exit(0)
+	}
 	gfile.Chmod("env/nginx/vhost/"+v.Domain+".conf", 0755)
 
 	// 3.重启nginx
@@ -418,7 +422,7 @@ func AskForVhost() (vh *Vhost, e error) {
 
 	// ssl是否开启
 	prompt := &survey.Confirm{
-		Message: "使用启用SSL?",
+		Message: "使用启用SSL?:",
 		Default: true,
 	}
 	survey.AskOne(prompt, &vhost.Ssl)
@@ -433,7 +437,7 @@ func AskForVhost() (vh *Vhost, e error) {
 
 		// 是否使用免费证书
 		prompt = &survey.Confirm{
-			Message: "使用免费证书:",
+			Message: "使用免费证书\n   部分特殊域名后缀（如.io ,.app,.dev），注册局直接强制80端口转443的，\n   申请免费证书会失败，这种情况请参考文档手动申请证书(DNS验证方式).:",
 			Default: true,
 		}
 		survey.AskOne(prompt, &vhost.FreeSsl)

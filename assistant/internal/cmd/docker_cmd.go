@@ -82,6 +82,16 @@ var (
 			return nil
 		},
 	}
+
+	PsCmd = &gcmd.Command{
+		Name:  "ps",
+		Usage: "xii ps",
+		Brief: "封装docker ps 命令,经常顺手操作，所以封装一下。\n",
+		Func: func(ctx context.Context, parser *gcmd.Parser) (err error) {
+			dockerRun("ps", parser)
+			return nil
+		},
+	}
 )
 
 // 执行docker-compose命令参数
@@ -113,4 +123,19 @@ func dockerComposeRun(typ string, parser *gcmd.Parser) {
 	docker := utility.Docker{}
 	docker.Auto()
 	docker.DockerActionShell(typ, dstr)
+}
+
+// 执行docker命令参数
+func dockerRun(typ string, parser *gcmd.Parser) {
+	// 获取参数
+	om := parser.GetOptAll()
+	containers := []string{}
+	if len(om) >= 0 {
+		for k, _ := range om {
+			containers = append(containers, "-"+k)
+		}
+	}
+	docker := utility.Docker{}
+	docker.Auto()
+	docker.DockerActionShell(typ, containers)
 }

@@ -28,7 +28,7 @@ var (
 	InitClearCmd = &gcmd.Command{
 		Name:  "clear",
 		Usage: "xii clear",
-		Brief: "清理镜像除配置外的所有数据\n-\n-\n---------以下为封装docker-compose相关命令---------\n封装原因是：docker-compose通常需要进入目录或带-f参数，操作过于麻烦。\n使用上注意所有容器名字需要带-，比如php容器就写做-php。\n-",
+		Brief: "清理镜像除配置外的所有数据\n-\n-\n---------以下为封装docker-compose/docker相关命令---------\n封装原因是：docker-compose通常需要进入目录或带-f参数，操作过于麻烦。\n使用上注意所有容器名字需要带-，比如php容器就写做-php。\n-",
 		Func: func(ctx context.Context, parser *gcmd.Parser) (err error) {
 
 			// 一期限定

@@ -27,6 +27,7 @@ func main() {
 	vhostCmd.AddCommand(cmd.VhostAddCmd, cmd.VhostDelCmd, cmd.VhostListCmd)
 	Main.AddCommand(vhostCmd, cmd.InitClearCmd)
 
+	Main.AddCommand(cmd.PsCmd)
 	Main.AddCommand(cmd.UpCmd, cmd.DownCmd, cmd.StartCmd, cmd.StopCmd, cmd.RestartCmd, cmd.RmCmd, cmd.BuildCmd)
 
 	// docker 便捷操作
