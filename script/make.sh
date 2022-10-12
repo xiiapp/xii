@@ -42,3 +42,5 @@ cp -f ./docker-compose.yml ./release/mac/docker-compose.yml
 cd ./release
 zip -r xii_linux.zip ./linux
 zip -r xii_mac.zip ./mac
+rm -rf ./linux
+rm -rf ./mac
