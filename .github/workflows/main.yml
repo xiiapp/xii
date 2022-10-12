@@ -1,6 +1,7 @@
 name: build
 on:
-  create # when someone creates a Git reference (Git branch or tag) in the workflow's repository
+  create:
+    types: [released] #预发布时出发
 jobs:
   build-and-deploy:
     runs-on: ubuntu-20.04
