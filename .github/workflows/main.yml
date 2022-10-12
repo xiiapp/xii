@@ -1,6 +1,6 @@
 name: build
 on:
-  create:
+  release:
     types: [released] #预发布时出发
 jobs:
   build-and-deploy:
