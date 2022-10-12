@@ -13,5 +13,7 @@ jobs:
           persist-credentials: false
 
       - name: Run build script
-        run: ./.github/scripts/build.sh
+        run: |
+        chmod +x ./.github/scripts/build.sh
+        ./.github/scripts/build.sh
         shell: bash
