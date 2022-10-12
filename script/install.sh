@@ -53,7 +53,7 @@ if [ "$(uname)" == "Darwin" ] ; then
   unzip xii.zip -d ./
   mv -f ~/xii/mac/* ./
   rm -rf ~/xii/release
-  rm -f ~/xii/xii.zip
+#  rm -f ~/xii/xii.zip
   mv -f ~/xii/mac ~/xii/
   cp -f ~/xii/env.config ~/xii/.env
   chmod +x ~/xii/xii
