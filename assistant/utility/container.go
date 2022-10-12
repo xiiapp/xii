@@ -5,7 +5,6 @@
 package utility
 
 import (
-	"fmt"
 	"os"
 	"os/exec"
 
@@ -66,7 +65,7 @@ func (d *Docker) DockerActionShell(action string, arg []string) {
 	} else {
 		argSlice := []string{"-f", d.ComposeFile, action}
 		argSlice = append(argSlice, arg...)
-		fmt.Println(argSlice)
+		// fmt.Println(argSlice)
 		cmd := exec.Command("docker-compose", argSlice...)
 		cmd.Stdin = os.Stdin
 		cmd.Stdout = os.Stdout
