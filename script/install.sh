@@ -1,12 +1,12 @@
 #!/bin/bash
 
-# Install Git
-if command -v git >/dev/null 2>&1; then
-  echo 'Git already installed.Exit'
+# Install wget
+if command -v wget >/dev/null 2>&1; then
+  echo 'wget already installed.Exit'
 else
-  yum install -y git
-  apt-get install -y git
-  apk add git
+  yum install -y wget
+  apt-get install -y wget
+  apk add wget
 fi
 
 
