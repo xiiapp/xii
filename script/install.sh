@@ -45,11 +45,10 @@ if [ "$(uname)" == "Darwin" ] ; then
   if [  -d "xii" ] ; then
     mv xii xii.bakup.$RANDOM
   fi
-  git clone -n  https://github.com/xiiapp/xii.git
+
   mkdir xii
   cd xii
-  git checkout main -- release/xii_mac.zip
-  mv  -f ~/xii/release/xii_mac.zip ~/xii/xii.zip
+  wget -c https://github.com/xiiapp/xii/raw/main/release/xii_mac.zip  -O xii.zip
   unzip xii.zip -d ./
   mv -f ~/xii/mac/* ./
   rm -rf ~/xii/release
@@ -66,11 +65,9 @@ else
   if [  -d "xii" ] ; then
     mv xii xii.bakup.$RANDOM
   fi
-  git clone -n  https://github.com/xiiapp/xii.git
   mkdir xii
   cd xii
-  git checkout main -- release/xii_linux.zip
-  mv  -f /home/xii/release/xii_linux.zip /home/xii/xii.zip
+  wget -c https://github.com/xiiapp/xii/raw/main/release/xii_linux.zip  -O xii.zip
   unzip xii.zip -d ./
   mv -f /home/xii/linux/* ./
   rm -rf /home/xii/release
