@@ -31,7 +31,7 @@ services:
   php80:
     build:
       context: ./env/php80
-      args:vo
+      args:
         PHP_VERSION: php:${PHP80_VERSION}-fpm-alpine3.13
         CONTAINER_PACKAGE_URL: ${CONTAINER_PACKAGE_URL}
         PHP_EXTENSIONS: ${PHP80_EXTENSIONS}
