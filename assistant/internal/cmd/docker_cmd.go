@@ -2,10 +2,13 @@ package cmd
 
 import (
 	"context"
+	"fmt"
+	"os"
 	"strings"
 
 	"assistant/utility"
 	"github.com/gogf/gf/v2/os/gcmd"
+	"github.com/gogf/gf/v2/os/gproc"
 )
 
 var (
@@ -69,6 +72,38 @@ var (
 		Brief: "封装docker-compose rm 命令,删除并且停止php容器\n",
 		Func: func(ctx context.Context, parser *gcmd.Parser) (err error) {
 			dockerComposeRun("rm", parser)
+			return nil
+		},
+	}
+	RmAllCmd = &gcmd.Command{
+		Name:  "rmall",
+		Usage: "xii rmall",
+		Brief: "停止并删除所有容器、所有镜像\n",
+		Func: func(ctx context.Context, parser *gcmd.Parser) (err error) {
+			// 停止所有的容器
+			r, e := gproc.ShellExec(`docker stop $(docker ps -aq)`)
+			if e != nil {
+				fmt.Println(e.Error())
+				os.Exit(1)
+			}
+			fmt.Println(r)
+
+			// 停止所有的容器
+			r, e = gproc.ShellExec(`docker rm $(docker ps -aq)`)
+			if e != nil {
+				fmt.Println(e.Error())
+				os.Exit(1)
+			}
+			fmt.Println(r)
+
+			// 删除所有的镜像
+			r, e = gproc.ShellExec(`docker rmi $(docker images -q)`)
+			if e != nil {
+				fmt.Println(e.Error())
+				os.Exit(1)
+			}
+			fmt.Println(r)
+			os.Exit(0)
 			return nil
 		},
 	}
