@@ -1,0 +1,12 @@
+name: build
+on: 
+  push: 
+    branches: 
+      - main # 这里表示push到main分支就会触发流程
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Run build script
+        run: ./.github/scripts/build.sh
+        shell: bash
