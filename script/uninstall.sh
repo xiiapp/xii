@@ -5,7 +5,7 @@
 rm -f /usr/local/bin/xii
 rm -f /usr/local/bin/xxi
 if [ "$(uname)" == "Darwin" ] ; then
-  rm -f ~/xii
+  rm -rf ~/xii
 else
   cd /home/xii
 fi

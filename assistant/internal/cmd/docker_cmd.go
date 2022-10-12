@@ -112,5 +112,5 @@ func dockerComposeRun(typ string, parser *gcmd.Parser) {
 
 	docker := utility.Docker{}
 	docker.Auto()
-	docker.DockerActionShell("up", dstr)
+	docker.DockerActionShell(typ, dstr)
 }

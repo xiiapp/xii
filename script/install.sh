@@ -53,12 +53,12 @@ if [ "$(uname)" == "Darwin" ] ; then
   unzip xii.zip -d ./
   mv -f ~/xii/mac/* ./
   rm -rf ~/xii/release
-#  rm -f ~/xii/xii.zip
-  mv -f ~/xii/mac ~/xii/
+  rm -f ~/xii/xii.zip
   cp -f ~/xii/env.config ~/xii/.env
   chmod +x ~/xii/xii
-  ln -s ~/xii/xii /usr/local/bin/xii
-  ln -s ~/xii/xii /usr/local/bin/xxi
+  echo "创建软链接需要输入密码授权"
+  sudo ln -s ~/xii/xii /usr/local/bin/xii
+  sudo ln -s ~/xii/xii /usr/local/bin/xxi
 
 else
   cd /home
@@ -75,7 +75,6 @@ else
   mv -f /home/xii/linux/* ./
   rm -rf /home/xii/release
   rm -f /home/xii/xii.zip
-  mv -f /home/xii/linux /home/xii/
   cp -f /home/xii/env.config /home/xii/.env
   chmod +x /home/xii/xii
   ln -s /home/xii/xii /usr/local/bin/xii
