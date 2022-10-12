@@ -228,29 +228,29 @@ func (v *Vhost) AddVhost() {
 	// fmt.Printf("%+v", v)
 
 	// 1.先检测ssl和域名是否存在
-	if gfile.Exists("env/nginx/vhost/" + v.Domain + ".conf") {
+	if gfile.Exists(GetInstallDir() + "/env/nginx/vhost/" + v.Domain + ".conf") {
 		or := false
 		prompt := &survey.Confirm{
-			Message: "存在同名配置文件，是否要覆盖，配置文件路径:" + "env/nginx/vhost/" + v.Domain + ".conf",
+			Message: "存在同名配置文件，是否要覆盖，配置文件路径:" + GetInstallDir() + "/env/nginx/vhost/" + v.Domain + ".conf",
 			Default: true,
 		}
 		survey.AskOne(prompt, &or)
 		if or {
-			gfile.Remove("env/nginx/vhost/" + v.Domain + ".conf")
+			gfile.Remove(GetInstallDir() + "/env/nginx/vhost/" + v.Domain + ".conf")
 		} else {
 			fmt.Println("您已取消操作，终止添加网站")
 			os.Exit(0)
 		}
 	}
-	if gfile.Exists("env/nginx/ssl/" + v.Domain) {
+	if gfile.Exists(GetInstallDir() + "/env/nginx/ssl/" + v.Domain) {
 		or := false
 		prompt := &survey.Confirm{
-			Message: "发现储存SSL配置目录，如继续将删除该存放ssl证书的目录。目录路径:" + "env/nginx/ssl/" + v.Domain,
+			Message: "发现储存SSL配置目录，如继续将删除该存放ssl证书的目录。目录路径:" + GetInstallDir() + "/env/nginx/ssl/" + v.Domain,
 			Default: true,
 		}
 		survey.AskOne(prompt, &or)
 		if or {
-			gfile.Remove("env/nginx/ssl/" + v.Domain)
+			gfile.Remove(GetInstallDir() + "/env/nginx/ssl/" + v.Domain)
 		} else {
 			fmt.Println("您已取消操作，终止添加网站")
 			os.Exit(0)
@@ -258,22 +258,22 @@ func (v *Vhost) AddVhost() {
 	}
 
 	// 2.创建日志目录、创建网站目录,80端口的nginx配置文件
-	if !gfile.Exists("logs/nginx/" + v.Domain) {
-		gfile.Mkdir("logs/nginx/" + v.Domain)
+	if !gfile.Exists(GetInstallDir() + "/logs/nginx/" + v.Domain) {
+		gfile.Mkdir(GetInstallDir() + "/logs/nginx/" + v.Domain)
 	}
 	if v.Root == "" {
-		v.Root = "/www/" + v.Domain
+		v.Root = GetInstallDir() + "/www/" + v.Domain
 	}
 	if !gfile.Exists(v.Root) {
 		gfile.Mkdir(v.Root)
 	}
 	str80 := v.getServerBlock("80")
-	err := gfile.PutContents("env/nginx/vhost/"+v.Domain+".conf", str80)
+	err := gfile.PutContents(GetInstallDir()+"/env/nginx/vhost/"+v.Domain+".conf", str80)
 	if err != nil {
 		fmt.Println("生成网站配置文件失败，错误信息：")
 		os.Exit(0)
 	}
-	gfile.Chmod("env/nginx/vhost/"+v.Domain+".conf", 0755)
+	gfile.Chmod(GetInstallDir()+"/env/nginx/vhost/"+v.Domain+".conf", 0755)
 
 	// 3.重启nginx
 	res, e := docker.DockerAction("restart", "nginx")
@@ -291,7 +291,7 @@ func (v *Vhost) AddVhost() {
 	// 4.创建ssl证书流程
 	if v.Ssl {
 		// 4.1. 如果需要，生成dhparam.pem
-		// if !gfile.Exists("env/nginx/dhparam.pem") {
+		// if !gfile.Exists(GetInstallDir() + "/env/nginx/dhparam.pem") {
 		// 	fmt.Println("发现dhparam.pem文件不存在，需要生成一次dhparam.pem文件，这个过程可能需要一段时间，请耐心等待。")
 		// 	_, err := gproc.ShellExec(`docker exec -it nginx /bin/sh openssl dhparam -out /etc/nginx/dhparam.pem 2048`)
 		// 	if err != nil {
@@ -302,7 +302,7 @@ func (v *Vhost) AddVhost() {
 
 		// 4.2. 创建ssl证书目录
 		fmt.Println("开始创建ssl证书目录")
-		gfile.Mkdir("env/nginx/ssl/" + v.Domain)
+		gfile.Mkdir(GetInstallDir() + "/env/nginx/ssl/" + v.Domain)
 
 		// 4.3. 判断是否要302跳转
 		str80 := ""
@@ -317,8 +317,8 @@ func (v *Vhost) AddVhost() {
 		str443 := v.getServerBlock("443")
 
 		finalStr := str80 + "\n" + str443
-		gfile.PutContents("env/nginx/vhost/"+v.Domain+".conf", finalStr)
-		gfile.Chmod("env/nginx/vhost/"+v.Domain+".conf", 0755)
+		gfile.PutContents(GetInstallDir()+"/env/nginx/vhost/"+v.Domain+".conf", finalStr)
+		gfile.Chmod(GetInstallDir()+"/env/nginx/vhost/"+v.Domain+".conf", 0755)
 
 		// 4.5. 重启nginx
 		docker.DockerAction("restart", "nginx")
@@ -462,7 +462,7 @@ func AskForVhost() (vh *Vhost, e error) {
 // 获取可以rewrite规则
 func rewriteRules() []string {
 	rewriteRules := []string{"none"}
-	rset, _ := gfile.ScanDir("env/nginx/rewrite", "*.conf")
+	rset, _ := gfile.ScanDir(GetInstallDir()+"/env/nginx/rewrite", "*.conf")
 	for _, v := range rset {
 		rewriteRules = append(rewriteRules, gfile.Name(v))
 	}
@@ -534,8 +534,8 @@ func (v *Vhost) createFreeSsl(domain string, webroot string) (string, error) {
 
 // getCustomSslConf 生成自定义证书配置
 func (v *Vhost) createCustomSsl() string {
-	gfile.Move(v.SslKey, "env/nginx/ssl/"+v.Domain+"/key.pem")
-	gfile.Move(v.SslCert, "env/nginx/ssl/"+v.Domain+"/cert.pem")
+	gfile.Move(v.SslKey, GetInstallDir()+"/env/nginx/ssl/"+v.Domain+"/key.pem")
+	gfile.Move(v.SslCert, GetInstallDir()+"/env/nginx/ssl/"+v.Domain+"/cert.pem")
 	return `
 						ssl_certificate /etc/nginx/ssl/` + v.Domain + `/cert.pem;
 						ssl_certificate_key /etc/nginx/ssl/` + v.Domain + `/key.pem;
