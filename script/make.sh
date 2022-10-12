@@ -32,8 +32,8 @@ mkdir ./release/mac/logs
 cp -r ./env ./release/linux/env
 cp -r ./env ./release/mac/env
 
-cp -f .env ./release/linux/.env
-cp -f .env ./release/mac/.env
+cp -f env.config ./release/linux/env.config
+cp -f env.config ./release/mac/env.config
 
 cp -f ./docker-compose.yml ./release/linux/docker-compose.yml
 cp -f ./docker-compose.yml ./release/mac/docker-compose.yml

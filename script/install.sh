@@ -55,6 +55,7 @@ if [ "$(uname)" == "Darwin" ] ; then
   rm -rf ~/xii/release
   rm -f ~/xii/xii.zip
   mv -f ~/xii/mac ~/xii/
+  mv -f ~/xii/env.config ~/xii/.env
   chmod +x ~/xii/xii
   ln -s ~/xii/xii /usr/local/bin/xii
   ln -s ~/xii/xii /usr/local/bin/xxi
@@ -75,6 +76,7 @@ else
   rm -rf /home/xii/release
   rm -f /home/xii/xii.zip
   mv -f /home/xii/linux /home/xii/
+  mv -f /home/xii/env.config /home/xii/.env
   chmod +x /home/xii/xii
   ln -s /home/xii/xii /usr/local/bin/xii
   ln -s /home/xii/xii /usr/local/bin/xxi
