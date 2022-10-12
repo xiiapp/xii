@@ -26,16 +26,23 @@ var (
 		Usage: "xii clear",
 		Brief: "清理镜像除配置外的所有数据",
 		Func: func(ctx context.Context, parser *gcmd.Parser) (err error) {
+
+			// 一期限定
+			basePath := "/home/xii"
+
 			op := false
 			alf := &survey.Confirm{
-				Message: "确认清理镜像除配置外的所有数据？他将清理掉data/目录、www/目录、logs/目录下的所有数据。操作不可逆！",
-				Default: true,
+				Message: "确认清理镜像除配置外的所有数据？\n  他将清理掉data/目录、www/目录、logs/目录下的所有数据。\n  原理是删除后重建，操作不可逆，请谨慎选择！",
+				Default: false,
 			}
 			survey.AskOne(alf, &op)
 			if op {
-				gfile.Remove(gfile.Join("/Users/mou/goProjects/xii", "data/"))
-				gfile.Remove(gfile.Join("/Users/mou/goProjects/xii", "logs/"))
-				gfile.Remove(gfile.Join("/Users/mou/goProjects/xii", "www/"))
+				gfile.Remove(gfile.Join(basePath, "data/"))
+				gfile.Remove(gfile.Join(basePath, "logs/"))
+				gfile.Remove(gfile.Join(basePath, "www/"))
+				gfile.Mkdir(gfile.Join(basePath, "data/"))
+				gfile.Mkdir(gfile.Join(basePath, "logs/"))
+				gfile.Mkdir(gfile.Join(basePath, "www/"))
 
 				fmt.Println("清理完成! 请重新启动镜像")
 			}
