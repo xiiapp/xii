@@ -1,5 +1,24 @@
 #!/bin/bash
 
+
+
+
+exit 0
+
+
+# Location variables
+Location="world"
+if [ "$1" == "china" ] ; then
+  Location=$1
+elif [ "$2" == "china" ] ; then
+  Location=$1
+fi
+
+
+echo "$Location"
+
+
+
 # Install Git
 if command -v wget >/dev/null 2>&1; then
   echo 'wget already installed.Exit'
@@ -30,8 +49,11 @@ fi
 if command -v docker-compose >/dev/null 2>&1; then
   echo 'docker-compose already installed.'
 else
- curl -L https://get.daocloud.io/docker/compose/releases/download/v2.11.2/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
- #curl -L "https://github.com/docker/compose/releases/download/v2.11.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+  if [ "$Location" == "china" ] ; then
+    curl -L https://get.daocloud.io/docker/compose/releases/download/v2.11.2/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+  else
+    curl -L "https://github.com/docker/compose/releases/download/v2.11.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+  fi
  chmod +x /usr/local/bin/docker-compose
  ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 fi
@@ -54,10 +76,16 @@ if [ "$(uname)" == "Darwin" ] ; then
   rm -rf ~/xii/release
   rm -f ~/xii/xii.zip
   cp -f ~/xii/env.config ~/xii/.env
+  if [ Location == "world" ] ; then
+      sed -i ""  's/CONTAINER_PACKAGE_URL=mirrors.ustc.edu.cn/CONTAINER_PACKAGE_URL=/g' ~/xii/.env
+  fi
   chmod +x ~/xii/xii
   echo "创建软链接需要输入密码授权"
   sudo ln -s ~/xii/xii /usr/local/bin/xii
   sudo ln -s ~/xii/xii /usr/local/bin/xxi
+
+
+
 
 else
   cd /home
@@ -73,6 +101,9 @@ else
   rm -rf /home/xii/release
   rm -f /home/xii/xii.zip
   cp -f /home/xii/env.config /home/xii/.env
+  if [ Location == "world" ] ; then
+      sed -i ""  's/CONTAINER_PACKAGE_URL=mirrors.ustc.edu.cn/CONTAINER_PACKAGE_URL=/g' /home/xii/.env
+  fi
   chmod +x /home/xii/xii
   ln -s /home/xii/xii /usr/local/bin/xii
   ln -s /home/xii/xii /usr/local/bin/xxi
