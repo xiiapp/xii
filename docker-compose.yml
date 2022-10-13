@@ -22,7 +22,7 @@ services:
       - ${NGINX_FASTCGI_PARAMS}:/etc/nginx/fastcgi_params:rw
       - ${NGINX_DHPARAM_PARAMS}:/etc/nginx/dhparam.pem:rw
       - ${NGINX_LOG_DIR}:/var/log/nginx/:rw
-      - ${NGINX_ACME_DIR}:/root/.acme.sh/ /:rw
+      - ${NGINX_ACME_DIR}:/root/.acme.sh/:rw
     environment:
       TZ: "$TZ"
     restart: always

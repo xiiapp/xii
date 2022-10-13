@@ -12,7 +12,8 @@ RUN if [ "${CONTAINER_PACKAGE_URL}" != "" ]; then \
     fi
 
 # Install acme.sh
-RUN apk add openssl && curl https://get.acme.sh | sh -s email=xii@exmaple.com && alias acme.sh=~/.acme.sh/acme.sh
+RUN apk add openssl
+RUN curl https://get.acme.sh | sh -s email=xii@exmaple.com && alias acme.sh=~/.acme.sh/acme.sh
 
 
 WORKDIR /www

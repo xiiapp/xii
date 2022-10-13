@@ -1,45 +1,10 @@
 #!/bin/bash
 
-# Install Git
-if command -v wget >/dev/null 2>&1; then
-  echo 'wget already installed.Exit'
-else
-  yum install -y wget
-  apt-get install -y wget
-  apk add wget
-fi
-
-
-
-# Install docker
-if command -v docker >/dev/null 2>&1; then
-  echo 'Docker already installed.Exit'
-else
-  curl -fsSL get.docker.com -o get-docker.sh
-  sh get-docker.sh --mirror Aliyun
-  systemctl enable docker
-  systemctl start docker
-  groupadd docker
-  if [ "root" !=  "$USER" ]; then
-      usermod -aG docker $USER
-  fi
-fi
-
-
-# Install the docker-compose
-if command -v docker-compose >/dev/null 2>&1; then
-  echo 'docker-compose already installed.'
-else
- curl -L https://get.daocloud.io/docker/compose/releases/download/v2.11.2/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
- #curl -L "https://github.com/docker/compose/releases/download/v2.11.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
- chmod +x /usr/local/bin/docker-compose
- ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
-fi
-
-
+echo "  手动安装：将xii_mac.zip或xii_linux.zip压缩包跟本脚本放在一起，然后执行本脚本将自动安装"
 
 # Create Floder
 if [ "$(uname)" == "Darwin" ] ; then
+  mv xii_mac.zip ~/xii.zip
   cd ~
 
   if [  -d "xii" ] ; then
@@ -48,7 +13,6 @@ if [ "$(uname)" == "Darwin" ] ; then
 
   mkdir xii
   cd xii
-  wget -c https://github.com/xiiapp/xii/raw/main/release/xii_mac.zip  -O xii.zip
   unzip xii.zip -d ./
   mv -f ~/xii/mac/* ./
   rm -rf ~/xii/release
@@ -60,6 +24,7 @@ if [ "$(uname)" == "Darwin" ] ; then
   sudo ln -s ~/xii/xii /usr/local/bin/xxi
 
 else
+   mv xii_linux.zip /home/xii.zip
   cd /home
 
   if [  -d "xii" ] ; then
@@ -67,7 +32,6 @@ else
   fi
   mkdir xii
   cd xii
-  wget -c https://github.com/xiiapp/xii/raw/main/release/xii_linux.zip  -O xii.zip
   unzip xii.zip -d ./
   mv -f /home/xii/linux/* ./
   rm -rf /home/xii/release
@@ -76,12 +40,7 @@ else
   chmod +x /home/xii/xii
   ln -s /home/xii/xii /usr/local/bin/xii
   ln -s /home/xii/xii /usr/local/bin/xxi
-
 fi
-
-
-
-
 
 
 
