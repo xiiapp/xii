@@ -302,6 +302,23 @@ func (v *Vhost) AddVhost() {
 		// 	}
 		// }
 
+		// 4.1 检测acme.sh是否存在
+		if v.FreeSsl {
+			if !gfile.Exists(GetInstallDir() + "/env/acme.sh/acme.sh") {
+				r, e := gproc.ShellExec(`docker exec -ti nginx /bin/sh /root/acme_install.sh`)
+				if e != nil {
+					fmt.Println("安装acme.sh失败,任务终止！\n 1.请手动执行docker exec -ti nginx /bin/sh /root/acme_install.sh 进行安装\n 2.或者不选免费证书，改为自己配置证书")
+					os.Exit(0)
+				}
+				if strings.Contains(r, "Install success") {
+					fmt.Println("acme.sh安装成功")
+				} else {
+					fmt.Println("acme.sh安装失败,任务终止！\n 1.请手动执行docker exec -ti nginx /bin/sh /root/acme_install.sh 进行安装\n 2.或者不选免费证书，改为自己配置证书")
+					os.Exit(0)
+				}
+			}
+		}
+
 		// 4.2. 创建ssl证书目录
 		fmt.Println("开始创建ssl证书目录")
 		gfile.Mkdir(GetInstallDir() + "/env/nginx/ssl/" + v.Domain)
