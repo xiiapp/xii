@@ -1,31 +1,29 @@
 #!/bin/bash
 
-
-
-
-exit 0
-
-
 # Location variables
 Location="world"
 if [ "$1" == "china" ] ; then
   Location=$1
-elif [ "$2" == "china" ] ; then
-  Location=$1
+#elif [ "$2" == "china" ] ; then
+#  Location=$1
 fi
 
 
-echo "$Location"
-
-
-
-# Install Git
+# Install wget & curl
 if command -v wget >/dev/null 2>&1; then
   echo 'wget already installed.Exit'
 else
   yum install -y wget
   apt-get install -y wget
   apk add wget
+fi
+
+if command -v curl >/dev/null 2>&1; then
+  echo 'curl already installed.Exit'
+else
+  yum install -y curl
+  apt-get install -y curl
+  apk add curl
 fi
 
 
@@ -102,7 +100,7 @@ else
   rm -f /home/xii/xii.zip
   cp -f /home/xii/env.config /home/xii/.env
   if [ Location == "world" ] ; then
-      sed -i ""  's/CONTAINER_PACKAGE_URL=mirrors.ustc.edu.cn/CONTAINER_PACKAGE_URL=/g' /home/xii/.env
+      sed -i  's/CONTAINER_PACKAGE_URL=mirrors.ustc.edu.cn/CONTAINER_PACKAGE_URL=/g' /home/xii/.env
   fi
   chmod +x /home/xii/xii
   ln -s /home/xii/xii /usr/local/bin/xii
