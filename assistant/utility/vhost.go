@@ -261,11 +261,13 @@ func (v *Vhost) AddVhost() {
 	if !gfile.Exists(GetInstallDir() + "/logs/nginx/" + v.Domain) {
 		gfile.Mkdir(GetInstallDir() + "/logs/nginx/" + v.Domain)
 	}
+
+	// 2.1 定位网站目录
 	if v.Root == "" {
-		v.Root = GetInstallDir() + "/www/" + v.Domain
+		v.Root = "/www/" + v.Domain
 	}
-	if !gfile.Exists(v.Root) {
-		gfile.Mkdir(v.Root)
+	if !gfile.Exists(GetInstallDir() + v.Root) {
+		gfile.Mkdir(GetInstallDir() + v.Root)
 	}
 	str80 := v.getServerBlock("80")
 	err := gfile.PutContents(GetInstallDir()+"/env/nginx/vhost/"+v.Domain+".conf", str80)

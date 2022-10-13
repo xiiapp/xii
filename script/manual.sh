@@ -26,11 +26,11 @@ if [ "$(uname)" == "Darwin" ] ; then
 else
    mv xii_linux.zip /home/xii.zip
   cd /home
-
   if [  -d "xii" ] ; then
     mv xii xii.bakup.$RANDOM
   fi
   mkdir xii
+  mv xii.zip xii/
   cd xii
   unzip xii.zip -d ./
   mv -f /home/xii/linux/* ./
