@@ -118,11 +118,15 @@ fi
 echo "  "
 echo "  "
 echo "  "
-echo -e "\033[41;33m ---Success---\033[0m"
-echo -e "\033[41;33mXII is installed successfully.\033[0m"
-echo -e "\033[41;33mYour App path is /home/xii .\033[0m"
-echo -e "\033[41;33mPlease run 'xii init' to initialize the environment.\033[0m"
-echo -e "\033[41;33mPlease visit https://xii.app for detail information before use.\033[0m"
+echo -e "\033[43;33m ---Success---\033[0m"
+echo -e "\033[43;33mXII is installed successfully.\033[0m"
+if [ "$(uname)" == "Darwin" ] ; then
+  echo -e "\033[43;33m Your app location is ~/xii \033[0m"
+else
+    echo -e "[43;33m Your app location is /home/xii [0m"
+
+fi
+echo -e "\033[43;33mPlease visit https://xii.app for detail information before use.\033[0m"
 echo "  "
 echo "  "
 echo "  "
