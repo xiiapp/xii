@@ -1,0 +1,17 @@
+# Redis安装
+  redis:
+    image: redis:${REDIS5_VERSION}
+    container_name: redis5
+    ports:
+      - "${REDIS5_HOST_PORT}:6379"
+    volumes:
+      - ${REDIS5_CONF_FILE}:/etc/redis.conf:ro
+      - ${DATA_DIR}/redis:/data/:rw
+    restart: always
+    entrypoint: [ "redis-server", "/etc/redis.conf" ]
+    labels:
+      "type": "redis"
+    environment:
+      TZ: "$TZ"
+    networks:
+      - default

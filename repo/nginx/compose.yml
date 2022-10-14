@@ -1,0 +1,30 @@
+  nginx:
+    build:
+      context: ./env/nginx
+      args:
+        NGINX_VERSION: nginx:${NGINX_VERSION}
+        CONTAINER_PACKAGE_URL: ${CONTAINER_PACKAGE_URL}
+        NGINX_INSTALL_APPS: ${NGINX_INSTALL_APPS}
+    container_name: nginx
+    ports:
+      - "${NGINX_HTTP_HOST_PORT}:80"
+      - "${NGINX_HTTPS_HOST_PORT}:443"
+    volumes:
+      - ${SOURCE_DIR}:/www/:rw
+      - ${NGINX_SSL_CERTIFICATE_DIR}:/etc/nginx/ssl:rw
+      - ${NGINX_REWRITE_DIR}:/etc/nginx/rewrite/:rw
+      - ${NGINX_OTHER_DIR}:/etc/nginx/other/:rw
+      - ${NGINX_VHOST_DIR}:/etc/nginx/vhost/:rw
+      - ${NGINX_CONF_FILE}:/etc/nginx/nginx.conf:rw
+      - ${NGINX_FASTCGI_PHP_CONF}:/etc/nginx/fastcgi-php.conf:rw
+      - ${NGINX_FASTCGI_PARAMS}:/etc/nginx/fastcgi_params:rw
+      - ${NGINX_DHPARAM_PARAMS}:/etc/nginx/dhparam.pem:rw
+      - ${NGINX_LOG_DIR}:/var/log/nginx/:rw
+      - ${NGINX_ACME_DIR}:/root/.acme.sh/:rw
+    environment:
+      TZ: "$TZ"
+    restart: always
+    labels:
+      "type": "nginx"
+    networks:
+      - default

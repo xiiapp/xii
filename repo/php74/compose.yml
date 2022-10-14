@@ -1,0 +1,24 @@
+  php74:
+    build:
+      context: ./env/php74
+      args:
+        PHP_VERSION: php:${PHP74_VERSION}-fpm-alpine
+        CONTAINER_PACKAGE_URL: ${CONTAINER_PACKAGE_URL}
+        PHP_EXTENSIONS: ${PHP74_EXTENSIONS}
+        TZ: "$TZ"
+    container_name: php74
+    expose:
+      - 9574
+    volumes:
+      - ${SOURCE_DIR}:/www/:rw
+      - ${PHP74_PHP_CONF_FILE}:/usr/local/etc/php/php.ini:ro
+      - ${PHP74_FPM_CONF_FILE}:/usr/local/etc/php-fpm.d/www.conf:rw
+      - ${PHP74_LOG_DIR}:/var/log/php
+      - ${DATA_DIR}/composer:/tmp/composer
+    restart: always
+    labels:
+      "type": "php"
+    cap_add:
+      - SYS_PTRACE
+    networks:
+      - default

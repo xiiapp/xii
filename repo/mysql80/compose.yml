@@ -1,0 +1,21 @@
+  # mysql8.x 需要2g内存才可以安装。
+  mysql80:
+    # 停用docker官方出的mysql8，
+    # image: mysql:${MYSQL80_VERSION}
+    image: mysql/mysql-server:${MYSQL_VERSION}
+    container_name: mysql80
+    ports:
+      - "${MYSQL80_HOST_PORT}:3306"
+    volumes:
+      - ${MYSQL80_CONF_FILE}:/etc/mysql/conf.d/mysql.cnf:ro
+      - ${DATA_DIR}/mysql:/var/lib/mysql/:rw
+      - ${MYSQL80_LOG_DIR}:/var/log/mysql/:rw
+    restart: always
+    networks:
+      - default
+    labels:
+      "type": "mysql"
+    environment:
+      MYSQL_ROOT_PASSWORD: "${MYSQL80_ROOT_PASSWORD}"
+      MYSQL_ROOT_HOST: "${MYSQL80_ROOT_HOST}"
+      TZ: "#$TZ"

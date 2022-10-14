@@ -1,0 +1,15 @@
+  node:
+    image: node:${NODE10_VERSION}
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ${SOURCE_DIR}:/www/:rw
+    expose:
+      - "8081"
+    networks:
+      - default
+    stdin_open: true
+    # 解决 docker-compose.yml 启动容器秒停 出错停止问题，加tty:true
+    tty: true
+    labels:
+      "type": "node"
