@@ -20,7 +20,7 @@ var (
 		Func: func(ctx context.Context, parser *gcmd.Parser) (err error) {
 
 			// 检索仓库模板
-			p := "/Users/mou/goProjects/xii/repo"
+			p := utility.GetInstallDir() + "/repo"
 			c := []string{}
 			rset, _ := gfile.ScanDir(p, "*")
 			for _, v := range rset {
