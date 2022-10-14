@@ -3,24 +3,61 @@ package cmd
 import (
 	"context"
 	"fmt"
+	"os"
 
+	"assistant/utility"
 	"github.com/AlecAivazis/survey/v2"
 	"github.com/gogf/gf/v2/os/gcmd"
 	"github.com/gogf/gf/v2/os/gfile"
+	"github.com/gogf/gf/v2/text/gstr"
 )
 
 var (
 	InitCmd = &gcmd.Command{
 		Name:  "init",
 		Usage: "xii init",
-		Brief: "[TODO] 可多次选择所需的镜像组件。该命令不删任何生产数据。",
+		Brief: "可多次选择所需的镜像容器组件。该命令不删任何生产数据。",
 		Func: func(ctx context.Context, parser *gcmd.Parser) (err error) {
-			fmt.Println(`
-当前一期版本暂时不支持通过该命令来选择组件，该功能为二期内容。
-请手动修改目录下的docker-compose.yml 文件(取消或增加注释)来修改组件。
-设置账号密码数据则手动修改目录下的.env 文件。
-`)
-			fmt.Println("")
+
+			// 检索仓库模板
+			p := "/Users/mou/goProjects/xii/repo"
+			c := []string{}
+			rset, _ := gfile.ScanDir(p, "*")
+			for _, v := range rset {
+				v2 := gfile.Basename(v)
+				if v2 != "base" && gfile.IsDir(v) {
+					c = append(c, v2)
+				}
+			}
+
+			// 选择区块
+			defaultSelect := utility.GetExistDockerFile()
+			cSlice := []string{}
+			alf := &survey.MultiSelect{
+				Message:  " 请选择你所需的镜像容器组件,他将重新生成配置文件。\n   如果已经在用的镜像，将保存现有配置。！\n",
+				PageSize: 20,
+				Options:  c,
+				Default:  defaultSelect,
+			}
+			survey.AskOne(alf, &cSlice)
+
+			fmt.Println("你选择的容器组件是：" + gstr.Join(cSlice, ","))
+
+			utility.GenerateDockerComposeFile(cSlice)
+			utility.GenerateEnvFile(cSlice)
+			utility.CopyDirIfExist(cSlice)
+
+			fmt.Println("\n\n")
+			fmt.Println("------------------")
+			fmt.Println("初始化/修改完成")
+			fmt.Println("注 意：谨慎起见，移除容器组件不会删除已经存在的数据，你需要手动删除数据和容器/镜像")
+			fmt.Println("建议1：如果是第一次初始化，请执行：xii up 或 xii up -d 来启动容器实例")
+			fmt.Println("建议2：如果是新增容器组件的，可以执行 xii up -容器组件 来单独启动容器组件，或者 xii up 直接启动所有容器组件,已存活的容器组件将被忽略")
+			fmt.Println("建议3：如果是移除容器组件的，可以执行 xii stop -容器组件 来停止容器组件，然后执行 xii rm -容器组件 来移除容器/镜像，然后手动删除配置文件，数据文件等（/data,/env/容器组件名）")
+			fmt.Println("------------------")
+			fmt.Println("\n\n")
+
+			os.Exit(0)
 			return nil
 		},
 	}

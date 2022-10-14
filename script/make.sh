@@ -28,15 +28,14 @@ mkdir ./release/mac/www
 mkdir ./release/linux/logs
 mkdir ./release/mac/logs
 
+mkdir ./release/linux/env
+mkdir ./release/mac/env
+
 # 复制文件
-cp -r ./env ./release/linux/env
-cp -r ./env ./release/mac/env
-
-cp -f env.config ./release/linux/env.config
-cp -f env.config ./release/mac/env.config
-
-cp -f ./docker-compose.yml ./release/linux/docker-compose.yml
-cp -f ./docker-compose.yml ./release/mac/docker-compose.yml
+cp -r ./repo ./release/linux/repo
+cp -r ./repo ./release/mac/repo
+cp -r ./script/manual.sh ./release/mac/manual.sh
+cp -r ./script/manual.sh ./release/linux/manual.sh
 
 # 打包
 cd ./release
