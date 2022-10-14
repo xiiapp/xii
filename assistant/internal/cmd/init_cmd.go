@@ -69,7 +69,7 @@ var (
 		Func: func(ctx context.Context, parser *gcmd.Parser) (err error) {
 
 			// 一期限定
-			basePath := "/home/xii"
+			basePath := utility.GetInstallDir()
 
 			op := false
 			alf := &survey.Confirm{
@@ -93,30 +93,13 @@ var (
 	}
 
 	AfterEditCmd = &gcmd.Command{
-		Name:  "after-edit",
-		Usage: "xii clear",
-		Brief: "清理镜像除配置外的所有数据\n-\n-\n---------以下为封装docker-compose/docker相关命令---------\n封装原因是：docker-compose通常需要进入目录或带-f参数，操作过于麻烦。\n使用上注意所有容器名字需要带-，比如php容器就写做-php。\n-",
+		Name:  "after",
+		Usage: "xii after -容器名",
+		Brief: "当手动修改了docker-comopose.yml或者.env的的某个容器组件的配置，想马上重新生效，需要执行三个步骤:\n  docker stop 组件容器名,\n  docker rm 组件容器名\n  docker-compose up -d --no-deps --build mysql " +
+			"\n Xii助手提供了这个封装，只需要执行 xii rebuild -容器组件名 即可\n",
 		Func: func(ctx context.Context, parser *gcmd.Parser) (err error) {
 
-			// 一期限定
-			basePath := "/home/xii"
-
-			op := false
-			alf := &survey.Confirm{
-				Message: "确认清理镜像除配置外的所有数据？\n  他将清理掉data/目录、www/目录、logs/目录下的所有数据。\n  原理是删除后重建，操作不可逆，请谨慎选择！",
-				Default: false,
-			}
-			survey.AskOne(alf, &op)
-			if op {
-				gfile.Remove(gfile.Join(basePath, "data/"))
-				gfile.Remove(gfile.Join(basePath, "logs/"))
-				gfile.Remove(gfile.Join(basePath, "www/"))
-				gfile.Mkdir(gfile.Join(basePath, "data/"))
-				gfile.Mkdir(gfile.Join(basePath, "logs/"))
-				gfile.Mkdir(gfile.Join(basePath, "www/"))
-
-				fmt.Println("清理完成! 请重新启动镜像")
-			}
+			fmt.Println("todo")
 
 			return nil
 		},
