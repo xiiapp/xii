@@ -10,7 +10,7 @@ import (
 func GetInstallDir() string {
 
 	// for dev
-	return "/Users/mou/goProjects/xii"
+	// return "/Users/mou/goProjects/xii"
 
 	switch runtime.GOOS {
 	case "darwin":
