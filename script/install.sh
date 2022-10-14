@@ -73,9 +73,8 @@ if [ "$(uname)" == "Darwin" ] ; then
   mv -f ~/xii/mac/* ./
   rm -rf ~/xii/release
   rm -f ~/xii/xii.zip
-  cp -f ~/xii/env.config ~/xii/.env
   if [ Location == "world" ] ; then
-      sed -i ""  's/CONTAINER_PACKAGE_URL=mirrors.ustc.edu.cn/CONTAINER_PACKAGE_URL=/g' ~/xii/.env
+      sed -i ""  's/CONTAINER_PACKAGE_URL=mirrors.ustc.edu.cn/CONTAINER_PACKAGE_URL=/g' ~/xii/repo/base/env.sample
   fi
   chmod +x ~/xii/xii
   echo "创建软链接需要输入密码授权"
@@ -98,9 +97,8 @@ else
   mv -f /home/xii/linux/* ./
   rm -rf /home/xii/release
   rm -f /home/xii/xii.zip
-  cp -f /home/xii/env.config /home/xii/.env
   if [ Location == "world" ] ; then
-      sed -i "" 's/CONTAINER_PACKAGE_URL=mirrors.ustc.edu.cn/CONTAINER_PACKAGE_URL=/g' /home/xii/.env
+      sed -i "" 's/CONTAINER_PACKAGE_URL=mirrors.ustc.edu.cn/CONTAINER_PACKAGE_URL=/g' /home/xii/repo/base/env.sample
   fi
   chmod +x /home/xii/xii
   ln -s /home/xii/xii /usr/local/bin/xii

@@ -1,0 +1,11 @@
+  memcached:
+    image: memcached:${MEMCACHED_VERSION}
+    container_name: memcached
+    ports:
+      - "${MEMCACHED_HOST_PORT}:11211"
+    environment:
+       MEMCACHED_CACHE_SIZE: "${MEMCACHED_CACHE_SIZE}"
+    networks:
+      - default
+    labels:
+      "type": "memcached"
