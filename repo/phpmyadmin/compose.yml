@@ -1,6 +1,6 @@
   #phpmyadmin:
     image: phpmyadmin
-    container_name: xii-phpmyadmin
+    container_name: phpmyadmin
     ports:
       - "${PHPMYADMIN_HOST_PORT}:80"
     volumes:
