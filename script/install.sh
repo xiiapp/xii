@@ -100,7 +100,7 @@ else
   rm -f /home/xii/xii.zip
   cp -f /home/xii/env.config /home/xii/.env
   if [ Location == "world" ] ; then
-      sed -i  's/CONTAINER_PACKAGE_URL=mirrors.ustc.edu.cn/CONTAINER_PACKAGE_URL=/g' /home/xii/.env
+      sed -i "" 's/CONTAINER_PACKAGE_URL=mirrors.ustc.edu.cn/CONTAINER_PACKAGE_URL=/g' /home/xii/.env
   fi
   chmod +x /home/xii/xii
   ln -s /home/xii/xii /usr/local/bin/xii
