@@ -116,15 +116,15 @@ fi
 echo "  "
 echo "  "
 echo "  "
-echo -e "\033[43;33m ---Success---\033[0m"
-echo -e "\033[43;33mXII is installed successfully.\033[0m"
+echo -e "\033[33m ---Success---\033[0m"
+echo -e "\033[33mXII is installed successfully.\033[0m"
 if [ "$(uname)" == "Darwin" ] ; then
-  echo -e "\033[43;33m Your app location is ~/xii \033[0m"
+  echo -e "\033[33m Your app location is ~/xii \033[0m"
 else
-    echo -e "[43;33m Your app location is /home/xii [0m"
+    echo -e "[33m Your app location is /home/xii [0m"
 
 fi
-echo -e "\033[43;33mPlease visit https://xii.app for detail information before use.\033[0m"
+echo -e "\033[33mPlease visit https://xii.app for detail information before use.\033[0m"
 echo "  "
 echo "  "
 echo "  "
