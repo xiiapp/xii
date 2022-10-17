@@ -180,7 +180,7 @@ var (
 			fmt.Println("开始停止容器对应镜像:" + containersStr)
 			r, e = gproc.ShellExec(`docker rmi ` + imagesIdsStr)
 			if e != nil {
-				fmt.Println("删除镜像(images)失败，执行命令：：" + `docker rmi ` + imagesIdsStr)
+				fmt.Println("删除镜像(images)失败，执行命令：" + `docker rmi ` + imagesIdsStr)
 				os.Exit(1)
 			}
 
