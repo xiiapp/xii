@@ -21,6 +21,7 @@
       - ${NGINX_DHPARAM_PARAMS}:/etc/nginx/dhparam.pem:rw
       - ${NGINX_LOG_DIR}:/var/log/nginx/:rw
       - ${NGINX_ACME_DIR}:/root/.acme.sh/:rw
+      - ${NGINX_CRONTAB_DIR}:/var/spool/cron/crontabs:rw
     environment:
       TZ: "$TZ"
     restart: always
