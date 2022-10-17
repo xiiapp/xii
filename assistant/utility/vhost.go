@@ -28,6 +28,7 @@ type Vhost struct {
 	Ssl        bool   // 是否开启https
 	FoursHttps bool   // 强制302跳转到https
 	FreeSsl    bool   // 是否使用免费证书
+	FreeSslCa  string // 免费证书ca
 	SslCert    string // 证书文件路径
 	SslKey     string // 私钥文件路径
 
@@ -159,6 +160,10 @@ func (v *Vhost) getServerBlock(port string) string {
 	// general path
 	str += `
 	include other/general.conf;`
+
+	// inluce letsencrypt ssl's rules
+	str += `
+	include wellknow.conf;`
 
 	// vhost type
 	if v.VhostType == "php" {
@@ -451,13 +456,13 @@ func AskForVhost() (vh *Vhost, e error) {
 			Name: "ErrorLog",
 			Prompt: &survey.Confirm{
 				Message: "是否开启错误日志，默认开启:",
-				Default: true,
+				Default: false,
 			},
 		}, {
 			Name: "AccessLog",
 			Prompt: &survey.Confirm{
 				Message: "是否开启访问日志，默认开启:",
-				Default: true,
+				Default: false,
 			},
 		},
 	}
@@ -496,12 +501,21 @@ func AskForVhost() (vh *Vhost, e error) {
 		}
 		survey.AskOne(prompt, &vhost.FreeSsl)
 
+		// Free CA
+		if vhost.FreeSsl {
+			ca := &survey.Select{
+				Message: "选择免费证书颁发机构:",
+				Options: []string{"zerossl", "letsencrypt"},
+			}
+			survey.AskOne(ca, &vhost.FreeSslCa)
+		}
+
+		// Custom cert and key
 		if !vhost.FreeSsl {
 			s := &survey.Input{
 				Message: "请输入证书文件路径:",
 			}
 			survey.AskOne(s, &vhost.SslCert)
-
 			s = &survey.Input{
 				Message: "请输入私钥文件路径:",
 			}
@@ -553,7 +567,12 @@ func (v *Vhost) createFreeSsl(domain string, webroot string) (string, error) {
 	fmt.Println("正在开生成免费证书：" + domain)
 	fmt.Println("可能会花费2-10分钟时间，请耐心等待，如失败会明确告知！")
 
+	// --server letsencrypt
 	cmd := `docker exec -it nginx /bin/sh ~/.acme.sh/acme.sh --issue -d ` + domain + ` --webroot ` + webroot + ` --force`
+	if v.FreeSslCa == "letsencrypt" {
+		cmd = `docker exec -it nginx /bin/sh ~/.acme.sh/acme.sh --issue -d ` + domain + ` --webroot ` + webroot + ` --force --server letsencrypt`
+	}
+
 	fmt.Println("执行生成命令：" + cmd)
 	r, err := gproc.ShellExec(cmd)
 	if strings.Contains(r, "Your cert is in") || strings.Contains(r, "Cert success.") {
