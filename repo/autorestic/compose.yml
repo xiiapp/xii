@@ -1,0 +1,17 @@
+  autorestic:
+    image: cupcakearmy/autorestic
+    container_name: autorestic
+    volumes:
+      - ${AUTORESTIC_CONFIG}:/data:rw   #备份目录
+      - ${SOURCE_DIR}:/www:rw           #源码目录
+      - ${DATA_DIR}:/container_data:rw  #容器的data目录
+      - ${AUTORESTIC_CONFIG}:/data/.autorestic.yaml:ro
+#      - ${AUTORESTIC_RCLONE_CONFIG}:/root/.config/rclone/rclone.conf:ro  # rclone配置文件，本机先安装rclone，然后执行rclone config，生成配置文件
+    restart: always
+    entrypoint: [ "redis-server", "/etc/redis.conf" ]
+    labels:
+      "type": "autorestic"
+    environment:
+      TZ: "$TZ"
+    networks:
+      - default
