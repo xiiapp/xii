@@ -496,7 +496,7 @@ func AskForVhost() (vh *Vhost, e error) {
 
 		// 是否使用免费证书
 		prompt = &survey.Confirm{
-			Message: "使用免费证书\n   部分特殊域名后缀（如.io ,.app,.dev），注册局直接强制80端口转443的，\n   申请免费证书会失败，这种情况请参考文档手动申请证书(DNS验证方式).:",
+			Message: "使用免费证书\n   部分特殊域名后缀（如.io ,.app,.dev），注册局直接强制80端口转443的，请选择letsencrypt's SSL申请。\n :",
 			Default: true,
 		}
 		survey.AskOne(prompt, &vhost.FreeSsl)
@@ -567,10 +567,19 @@ func (v *Vhost) createFreeSsl(domain string, webroot string) (string, error) {
 	fmt.Println("正在开生成免费证书：" + domain)
 	fmt.Println("可能会花费2-10分钟时间，请耐心等待，如失败会明确告知！")
 
+	// split other domains
+	secondDomains := ""
+	if v.OtherDomains != "" {
+		domains := strings.Split(v.OtherDomains, " ")
+		for _, d := range domains {
+			secondDomains = secondDomains + " -d " + d + " "
+		}
+	}
+
 	// --server letsencrypt
-	cmd := `docker exec -it nginx /bin/sh ~/.acme.sh/acme.sh --issue -d ` + domain + ` --webroot ` + webroot + ` --force`
+	cmd := `docker exec -it nginx /bin/sh ~/.acme.sh/acme.sh --issue -d ` + domain + secondDomains + ` --webroot ` + webroot + ` --force`
 	if v.FreeSslCa == "letsencrypt" {
-		cmd = `docker exec -it nginx /bin/sh ~/.acme.sh/acme.sh --issue -d ` + domain + ` --webroot ` + webroot + ` --force --server letsencrypt`
+		cmd = `docker exec -it nginx /bin/sh ~/.acme.sh/acme.sh --issue -d ` + domain + secondDomains + ` --webroot ` + webroot + ` --force --server letsencrypt`
 	}
 
 	fmt.Println("执行生成命令：" + cmd)
