@@ -168,8 +168,8 @@ var (
 			fmt.Println(r)
 
 			// 删除所有的容器
-			fmt.Println("开始删除对应的镜像:" + imagesIdsStr)
-			r, e = gproc.ShellExec(`docker rm ` + imagesIdsStr)
+			fmt.Println("开始删除容器:" + containersStr)
+			r, e = gproc.ShellExec(`docker rm ` + containersStr)
 			if e != nil {
 				fmt.Println("删除容器(container)失败，失败原因：" + e.Error())
 				os.Exit(1)
@@ -180,7 +180,7 @@ var (
 			fmt.Println("开始停止容器对应镜像:" + containersStr)
 			r, e = gproc.ShellExec(`docker rmi ` + imagesIdsStr)
 			if e != nil {
-				fmt.Println("删除镜像(images)失败，失败原因：" + e.Error())
+				fmt.Println("删除镜像(images)失败，执行命令：：" + `docker rmi ` + imagesIdsStr)
 				os.Exit(1)
 			}
 
