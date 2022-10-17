@@ -12,7 +12,7 @@ locations:
   important:
     from: /www
     to:
-      - remote
+#      - remote
       - hdd
 
 backends:
@@ -26,5 +26,5 @@ backends:
 
   hdd:
     type: local
-    path: /data/backup
+    path: /data
     key: 'if not key is set it will be generated for you'
