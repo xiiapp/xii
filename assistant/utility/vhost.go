@@ -496,7 +496,7 @@ func AskForVhost() (vh *Vhost, e error) {
 
 		// 是否使用免费证书
 		prompt = &survey.Confirm{
-			Message: "使用免费证书\n   部分特殊域名后缀（如.io ,.app,.dev），注册局直接强制80端口转443的，请选择letsencrypt's SSL申请。\n :",
+			Message: "使用免费证书\n :",
 			Default: true,
 		}
 		survey.AskOne(prompt, &vhost.FreeSsl)
@@ -504,8 +504,8 @@ func AskForVhost() (vh *Vhost, e error) {
 		// Free CA
 		if vhost.FreeSsl {
 			ca := &survey.Select{
-				Message: "选择免费证书颁发机构:",
-				Options: []string{"zerossl", "letsencrypt"},
+				Message: "选择免费证书颁发机构:\n部分特殊域名后缀（如.io ,.app,.dev），注册局直接强制80端口转443的，请优先选择letsencrypt's SSL申请。",
+				Options: []string{"letsencrypt", "zerossl"},
 			}
 			survey.AskOne(ca, &vhost.FreeSslCa)
 		}
