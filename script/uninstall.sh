@@ -10,8 +10,8 @@ if [ "$(uname)" == "Darwin" ] ; then
   sudo rm -f /usr/local/bin/xxi
 else
   rm -rf /home/xii
-  sudo rm -f /usr/local/bin/xii
-  sudo rm -f /usr/local/bin/xxi
+  rm -f /usr/local/bin/xii
+  rm -f /usr/local/bin/xxi
 fi
 
 
