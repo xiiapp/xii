@@ -163,7 +163,7 @@ func (v *Vhost) getServerBlock(port string) string {
 
 	// inluce letsencrypt ssl's rules
 	str += `
-	include wellknow.conf;`
+	include other/wellknow.conf;`
 
 	// vhost type
 	if v.VhostType == "php" {
