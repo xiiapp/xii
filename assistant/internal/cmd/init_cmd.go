@@ -91,17 +91,4 @@ var (
 			return nil
 		},
 	}
-
-	AfterEditCmd = &gcmd.Command{
-		Name:  "after",
-		Usage: "xii after -容器名",
-		Brief: "当手动修改了docker-comopose.yml或者.env的的某个容器组件的配置，想马上重新生效，需要执行三个步骤:\n  docker stop 组件容器名,\n  docker rm 组件容器名\n  docker-compose up -d --no-deps --build mysql " +
-			"\n Xii助手提供了这个封装，只需要执行 xii rebuild -容器组件名 即可\n",
-		Func: func(ctx context.Context, parser *gcmd.Parser) (err error) {
-
-			fmt.Println("todo")
-
-			return nil
-		},
-	}
 )

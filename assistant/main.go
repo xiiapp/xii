@@ -25,7 +25,7 @@ func main() {
 	// vhost 管理相关
 	vhostCmd := cmd.VhostCmd
 	vhostCmd.AddCommand(cmd.VhostAddCmd, cmd.VhostDelCmd, cmd.VhostListCmd)
-	Main.AddCommand(vhostCmd, cmd.InitCmd, cmd.AfterEditCmd, cmd.InitClearCmd)
+	Main.AddCommand(vhostCmd, cmd.InitCmd, cmd.RebuildCmd, cmd.InitClearCmd)
 
 	Main.AddCommand(cmd.PsCmd, cmd.RmAllCmd)
 	Main.AddCommand(cmd.UpCmd, cmd.DownCmd, cmd.StartCmd, cmd.StopCmd, cmd.RestartCmd, cmd.RmCmd, cmd.BuildCmd)

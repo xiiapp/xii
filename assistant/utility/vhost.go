@@ -22,7 +22,8 @@ type Vhost struct {
 	OtherDomains string // 多个域名用空格分隔
 	Root         string // 项目根目录
 
-	VhostType string // 5种类型类型，php,html,python,node,reverse
+	VhostType    string // 5种类型类型，php,html,python,node,reverse
+	PhpContainer string // php容器名称
 
 	Ssl        bool   // 是否开启https
 	FoursHttps bool   // 强制302跳转到https
@@ -81,11 +82,16 @@ func (v *Vhost) getServerBlock(port string) string {
 		port = "443 ssl http2"
 	}
 
+	finalDomain := v.Domain
+	if v.OtherDomains != "" {
+		finalDomain = v.Domain + " " + v.OtherDomains
+	}
+
 	// 主要配置开始
 	str := `server {
     listen      ` + port + `;
     listen      [::]:` + port + `;
-    server_name ` + v.Domain + `;`
+    server_name ` + finalDomain + `;`
 
 	// index page
 	if v.VhostType == "php" {
@@ -161,14 +167,14 @@ func (v *Vhost) getServerBlock(port string) string {
 	location ~ [^/]\.php(/|$)
 			        {
 			            try_files $uri =404;
-			            fastcgi_pass   php80:9000;
+			            fastcgi_pass   ` + v.PhpContainer + `:9000;
 			            fastcgi_index index.php;
 						include   fastcgi_params;
 			        }`
 		} else {
 			str += `
 	location ~ [^/]\.php(/|$) {
-				        fastcgi_pass   php80:9000;
+				        fastcgi_pass   ` + v.PhpContainer + `:9000;
 				        include        fastcgi-php.conf;
 				        include        fastcgi_params;
 				    }`
@@ -357,15 +363,44 @@ func AskForVhost() (vh *Vhost, e error) {
 	fmt.Println("\n  ")
 
 	vhost := Vhost{}
-	var qs = []*survey.Question{
-		{
-			Name: "VhostType",
-			Prompt: &survey.Select{
-				Message: "当前网站/项目的技术类型是:",
-				Options: []string{"php", "html", "python", "node", "reverse proxy"},
-			},
-		},
 
+	// 询问架构
+	t := &survey.Select{
+		Message: "当前网站/项目的技术类型是:",
+		Options: []string{"php", "html", "python", "node", "reverse proxy"},
+	}
+	survey.AskOne(t, &vhost.VhostType)
+
+	if vhost.VhostType == "php" {
+		s, e := docker.ContainerName()
+		if e != nil {
+			fmt.Println("看起来没有容器在运行，请先运行起来后再添加。")
+			os.Exit(1)
+		}
+		s2 := []string{}
+		if len(s) > 0 {
+			for _, v := range s {
+				if IsContainerLive(v) {
+					if strings.Contains(v, vhost.VhostType) {
+						s2 = append(s2, v)
+					}
+				}
+			}
+		}
+		if len(s2) == 0 {
+			fmt.Println("没找到存活的" + vhost.VhostType + "容器，无法进入")
+			os.Exit(1)
+		}
+
+		// 选择php版本
+		t := &survey.Select{
+			Message: "选择php版本,如需其版本，请先确保对应的容器有在运行。:",
+			Options: s2,
+		}
+		survey.AskOne(t, &vhost.PhpContainer)
+	}
+
+	var qs = []*survey.Question{
 		{
 			Name:     "Domain",
 			Prompt:   &survey.Input{Message: "请输入主域名:"},
@@ -468,7 +503,7 @@ func AskForVhost() (vh *Vhost, e error) {
 			survey.AskOne(s, &vhost.SslCert)
 
 			s = &survey.Input{
-				Message: "请输入私钥文件路径\n Enter your private key file path:",
+				Message: "请输入私钥文件路径:",
 			}
 			survey.AskOne(s, &vhost.SslKey)
 		}
@@ -553,8 +588,8 @@ func (v *Vhost) createFreeSsl(domain string, webroot string) (string, error) {
 
 // getCustomSslConf 生成自定义证书配置
 func (v *Vhost) createCustomSsl() string {
-	gfile.Move(v.SslKey, GetInstallDir()+"/env/nginx/ssl/"+v.Domain+"/key.pem")
-	gfile.Move(v.SslCert, GetInstallDir()+"/env/nginx/ssl/"+v.Domain+"/cert.pem")
+	gfile.Copy(v.SslKey, GetInstallDir()+"/env/nginx/ssl/"+v.Domain+"/key.pem")
+	gfile.Copy(v.SslCert, GetInstallDir()+"/env/nginx/ssl/"+v.Domain+"/cert.pem")
 	return `
 						ssl_certificate /etc/nginx/ssl/` + v.Domain + `/cert.pem;
 						ssl_certificate_key /etc/nginx/ssl/` + v.Domain + `/key.pem;

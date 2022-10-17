@@ -2,12 +2,18 @@
 
 
 
-rm -f /usr/local/bin/xii
-rm -f /usr/local/bin/xxi
+
 if [ "$(uname)" == "Darwin" ] ; then
+  echo "Enter your password to uninstall "
   rm -rf ~/xii
+  sudo rm -f /usr/local/bin/xii
+  sudo rm -f /usr/local/bin/xxi
 else
-  cd /home/xii
+  rm -rf /home/xii
+  sudo rm -f /usr/local/bin/xii
+  sudo rm -f /usr/local/bin/xxi
 fi
+
+
 
 echo "Uninstall success"
