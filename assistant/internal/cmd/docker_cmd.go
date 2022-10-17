@@ -145,7 +145,7 @@ var (
 				for k, _ := range om {
 					containers = append(containers, k)
 					// 获取镜像id
-					iid, _ := gproc.ShellExec(`docker ps -a| grep ` + k + ` | awk '{print $1}'`)
+					iid, _ := gproc.ShellExec(`docker ps -a| grep ` + k + ` | awk '{print $2}'`)
 					if iid != "" {
 						imagesIds = append(imagesIds, iid)
 					}
