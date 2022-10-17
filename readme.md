@@ -270,3 +270,8 @@ sudo gpasswd -a ${USER} docker
 ## 问题 3: 国内使用 docker 慢
 
 安装的时候，复制专用国内的安装脚本。其实就是 install.sh 后面加一个参数 china 就会默认使用国内源。
+
+
+# 授权
+
+**MIT**
