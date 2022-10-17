@@ -1,6 +1,6 @@
   php56:
     build:
-      context: ./env/php
+      context: ./env/php56
       args:
         PHP_VERSION: php:${PHP56_VERSION}-fpm-alpine
         CONTAINER_PACKAGE_URL: ${CONTAINER_PACKAGE_URL}
