@@ -1,0 +1,24 @@
+  php81:
+    build:
+      context: ./env/php81
+      args:
+        PHP_VERSION: php:${PHP81_VERSION}-fpm-alpine3.16
+        CONTAINER_PACKAGE_URL: ${CONTAINER_PACKAGE_URL}
+        PHP_EXTENSIONS: ${PHP81_EXTENSIONS}
+        TZ: "$TZ"
+    container_name: php81
+    expose:
+      - 9581
+    volumes:
+      - ${SOURCE_DIR}:/www/:rw
+      - ${PHP81_PHP_CONF_FILE}:/usr/local/etc/php/php.ini:ro
+      - ${PHP81_FPM_CONF_FILE}:/usr/local/etc/php-fpm.d/www.conf:rw
+      - ${PHP81_LOG_DIR}:/var/log/php
+      - ${DATA_DIR}/composer:/tmp/composer
+    restart: always
+    labels:
+      "type": "php"
+    cap_add:
+      - SYS_PTRACE
+    networks:
+      - default
