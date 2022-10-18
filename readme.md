@@ -15,29 +15,28 @@ Docker 化的 lnmp 环境及更多软件包，同时提供助手程序 xii 用�
 
 ## 内置软件(Docker 镜像)清单
 
-```shell
-├── php56
-├── php74
-├── php80
-├── nginx
-├── mysql57
-├── mysql80
-├── memcached
-├── mongodb
-├── redis5
-├── redis6
-├── node10
-├── node14
-├── node16
-├── node18
-├── phpmyadmin
-├── rabitmq
-└── supervisor
-```
+**PHP:**  php7.3 , php7.4,  php8.0,  php8.1,  php8.2
+
+**Web服务器**： nginx
+
+**数据库：** <u>mysql5.7,</u>  <u>mysql8.0</u> , mysql5.6 , mysql5.5
+
+**Nosql:** mongoldb ,   redis
+
+**缓存：**memcached
+
+**消息队列**：rabitmq
+
+**其他：**supervisor
+
+**工具：**phpmyadmin
 
 **注 1：**可自行轻松扩展软件清单
 
 **注 2：** php 支持快捷安装扩展，<u>已默认安装 compose</u>，php 扩展等请查看左边 php 节点说明。 nginx 的配置已做优化处理，默认自带 acme.sh，可免费申请 ssl 证书。phpmyadmin 实际运行体积大改 450Mb，不太建议启用。
+
+**注3：** Mysql尽可能建议使用5.7或以上版本，能获得更多的性能。 使用前请查看左边mysql说明了解端口、导出导入数据等信息。
+
 
 ## 助手程序 Xii
 
