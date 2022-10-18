@@ -26,6 +26,14 @@ else
   apk add curl
 fi
 
+if command -v unzip >/dev/null 2>&1; then
+  echo 'unzip already installed.Exit'
+else
+  yum install -y unzip
+  apt-get install -y unzip
+  apk add unzip
+fi
+
 
 
 # Install docker
