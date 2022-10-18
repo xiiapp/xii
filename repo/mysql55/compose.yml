@@ -1,0 +1,19 @@
+# mysql5.6
+  mysql55:
+    image: mysql/mysql-server:${MYSQL55_VERSION}
+    container_name: mysql55
+    ports:
+      - "${MYSQL55_HOST_PORT}:3306"
+    volumes:
+      - ${MYSQL55_CONF_FILE}:/etc/mysql/conf.d/mysql.cnf:ro
+      - ${DATA_DIR}/mysql55:/var/lib/mysql/:rw
+      - ${MYSQL55_LOG_DIR}:/var/log/mysql/:rw
+    restart: always
+    networks:
+      - default
+    labels:
+      "type": "mysql"
+    environment:
+      MYSQL_ROOT_PASSWORD: "${MYSQL55_ROOT_PASSWORD}"
+      MYSQL_ROOT_HOST: "${MYSQL55_ROOT_HOST}"
+      TZ: "$TZ"

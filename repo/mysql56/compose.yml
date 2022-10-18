@@ -1,0 +1,19 @@
+# mysql5.6
+  mysql56:
+    image: mysql/mysql-server:${MYSQL56_VERSION}
+    container_name: mysql56
+    ports:
+      - "${MYSQL56_HOST_PORT}:3306"
+    volumes:
+      - ${MYSQL56_CONF_FILE}:/etc/mysql/conf.d/mysql.cnf:ro
+      - ${DATA_DIR}/mysql56:/var/lib/mysql/:rw
+      - ${MYSQL56_LOG_DIR}:/var/log/mysql/:rw
+    restart: always
+    networks:
+      - default
+    labels:
+      "type": "mysql"
+    environment:
+      MYSQL_ROOT_PASSWORD: "${MYSQL56_ROOT_PASSWORD}"
+      MYSQL_ROOT_HOST: "${MYSQL56_ROOT_HOST}"
+      TZ: "$TZ"
