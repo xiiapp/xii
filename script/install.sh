@@ -131,6 +131,7 @@ else
   url=" https://github.com/xiiapp/xii/raw/main/release/xii_linux.zip"
   if [  -n "$S" ]; then
     url="https://github.com/xiiapp/xii/raw/main/release/xii_linux$S.zip"
+    echo $url
   fi
 
 #  wget -c https://github.com/xiiapp/xii/raw/main/release/xii_linux.zip  -O xii.zip
