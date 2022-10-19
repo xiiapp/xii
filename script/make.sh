@@ -3,7 +3,7 @@
 # 编译xii助手
 cd ../assistant
 gf build -n xii_mac -a amd64,arm64  -s darwin
-gf build -n xii_mac -a amd64,arm,arm64 -s linux
+gf build -n xii_linux -a amd64,arm,arm64 -s linux
 
 # 迁移xii助手
 cd ../

@@ -26,15 +26,15 @@ Docker 化的 lnmp 环境及更多软件包，同时提供助手程序 xii 用�
 
 **Nosql:** mongoldb ,   redis
 
-**缓存：**memcached
+**缓存：**  memcached
 
 **消息队列**：rabitmq
 
-**其他：**supervisor
+**其他：** supervisor
 
-**工具：**phpmyadmin
+**工具：** phpmyadmin
 
-**注 1：**可自行轻松扩展软件清单
+**注 1：** 可自行轻松扩展软件清单
 
 **注 2：** php 支持快捷安装扩展，<u>已默认安装 compose</u>，php 扩展等请查看左边 php 节点说明。 nginx 的配置已做优化处理，默认自带 acme.sh，可免费申请 ssl 证书。phpmyadmin 实际运行体积大改 450Mb，不太建议启用。
 
