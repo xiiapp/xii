@@ -77,7 +77,7 @@ if command -v docker-compose >/dev/null 2>&1; then
   echo 'docker-compose already installed.'
 else
   if [ "$Location" == "china" ] ; then
-    curl -L https://get.daocloud.io/docker/compose/releases/download/v2.11.2/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+    curl -L "https://get.daocloud.io/docker/compose/releases/download/v2.11.2/docker-compose-$(uname -s)-$(uname -m)" > /usr/local/bin/docker-compose
   else
     curl -L "https://github.com/docker/compose/releases/download/v2.11.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
   fi
@@ -105,7 +105,7 @@ if [ "$(uname)" == "Darwin" ] ; then
 
   wget -c "$url"  -O xii.zip
   unzip xii.zip -d ./
-  mv -f ~/xii/ma*/* ./
+  mv -f ~/xii/mac"$S"/* ./
   rm -rf ~/xii/release
   rm -f ~/xii/xii.zip
   if [ Location == "world" ] ; then
@@ -136,7 +136,7 @@ else
 #  wget -c https://github.com/xiiapp/xii/raw/main/release/xii_linux.zip  -O xii.zip
   wget -c "$url"  -O xii.zip
   unzip xii.zip -d ./
-  mv -f /home/xii/linu*/* ./
+  mv -f /home/xii/linux"$S"/* ./
   rm -rf /home/xii/release
   rm -f /home/xii/xii.zip
   if [ Location == "world" ] ; then
