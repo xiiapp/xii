@@ -11,22 +11,17 @@ fi
 # 架构
 S=""
 if [ "$1" == "arm" ] ; then
-  S="_$1"
+  S="_arm"
 elif [ "$2" == "arm" ] ; then
-  S="_$1"
+  S="_arm"
 fi
 
 if [ "$1" == "arm64" ] ; then
-  S="_$1"
+  S="_arm64"
 elif [ "$2" == "arm64" ] ; then
-  S="_$1"
+  S="_arm64"
 fi
 
-
-
-echo "$S"
-
-eixt
 
 
 
