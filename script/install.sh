@@ -24,9 +24,9 @@ fi
 
 
 
+echo "$S"
 
-
-
+eixt
 
 
 
