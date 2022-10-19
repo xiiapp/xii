@@ -4,7 +4,7 @@ echo "  手动安装：将xii_mac.zip或xii_linux.zip压缩包跟本脚本放在
 
 # Create Floder
 if [ "$(uname)" == "Darwin" ] ; then
-  mv xii_mac.zip ~/xii.zip
+  mv xii_m*.zip ~/xii.zip
   cd ~
 
   if [  -d "xii" ] ; then
@@ -14,7 +14,7 @@ if [ "$(uname)" == "Darwin" ] ; then
   mkdir xii
   cd xii
   unzip xii.zip -d ./
-  mv -f ~/xii/mac/* ./
+  mv -f ~/xii/ma*/* ./
   rm -rf ~/xii/release
   rm -f ~/xii/xii.zip
   cp -f ~/xii/env.config ~/xii/.env
@@ -24,7 +24,7 @@ if [ "$(uname)" == "Darwin" ] ; then
   sudo ln -s ~/xii/xii /usr/local/bin/xxi
 
 else
-   mv xii_linux.zip /home/xii.zip
+   mv xii_l*.zip /home/xii.zip
   cd /home
   if [  -d "xii" ] ; then
     mv xii xii.bakup.$RANDOM

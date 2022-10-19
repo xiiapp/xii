@@ -4,9 +4,30 @@
 Location="world"
 if [ "$1" == "china" ] ; then
   Location=$1
-#elif [ "$2" == "china" ] ; then
-#  Location=$1
+elif [ "$2" == "china" ] ; then
+  Location=$1
 fi
+
+# 架构
+S=""
+if [ "$1" == "arm" ] ; then
+  S="_$1"
+elif [ "$2" == "arm" ] ; then
+  S="_$1"
+fi
+
+if [ "$1" == "arm64" ] ; then
+  S="_$1"
+elif [ "$2" == "arm64" ] ; then
+  S="_$1"
+fi
+
+
+
+
+
+
+
 
 
 # Install wget & curl
@@ -76,9 +97,15 @@ if [ "$(uname)" == "Darwin" ] ; then
 
   mkdir xii
   cd xii
-  wget -c https://github.com/xiiapp/xii/raw/main/release/xii_mac.zip  -O xii.zip
+
+  url=" https://github.com/xiiapp/xii/raw/main/release/xii_mac.zip"
+  if [  -n "$S" ]; then
+    url="https://github.com/xiiapp/xii/raw/main/release/xii_mac_arm.zip"
+  fi
+
+  wget -c "$url"  -O xii.zip
   unzip xii.zip -d ./
-  mv -f ~/xii/mac/* ./
+  mv -f ~/xii/ma*/* ./
   rm -rf ~/xii/release
   rm -f ~/xii/xii.zip
   if [ Location == "world" ] ; then
@@ -100,9 +127,16 @@ else
   fi
   mkdir xii
   cd xii
-  wget -c https://github.com/xiiapp/xii/raw/main/release/xii_linux.zip  -O xii.zip
+
+  url=" https://github.com/xiiapp/xii/raw/main/release/xii_linux.zip"
+  if [  -n "$S" ]; then
+    url="https://github.com/xiiapp/xii/raw/main/release/xii_linux$S.zip"
+  fi
+
+#  wget -c https://github.com/xiiapp/xii/raw/main/release/xii_linux.zip  -O xii.zip
+  wget -c "$url"  -O xii.zip
   unzip xii.zip -d ./
-  mv -f /home/xii/linux/* ./
+  mv -f /home/xii/linu*/* ./
   rm -rf /home/xii/release
   rm -f /home/xii/xii.zip
   if [ Location == "world" ] ; then
