@@ -1,4 +1,7 @@
 
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 # 最新changelog（1-2条）
 2022-10-19 增加对arm、arm64 架构的支持。
 
@@ -289,6 +292,20 @@ sudo gpasswd -a ${USER} docker
 ## Contributors
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tbody>
+    <tr>
+      <td align="center"><a href="https://github.com/mslxi"><img src="https://avatars.githubusercontent.com/u/56199297?v=4?s=100" width="100px;" alt="mslxi"/><br /><sub><b>mslxi</b></sub></a><br /><a href="https://github.com/xiiapp/xii/commits?author=mslxi" title="Code">💻</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
 
