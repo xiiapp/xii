@@ -105,7 +105,7 @@ if [ "$(uname)" == "Darwin" ] ; then
 
   wget -c "$url"  -O xii.zip
   unzip xii.zip -d ./
-  mv -f ~/xii/mac/* ./
+  mv -f ~/xii/ma*/* ./
   rm -rf ~/xii/release
   rm -f ~/xii/xii.zip
   if [ Location == "world" ] ; then
@@ -136,7 +136,7 @@ else
 #  wget -c https://github.com/xiiapp/xii/raw/main/release/xii_linux.zip  -O xii.zip
   wget -c "$url"  -O xii.zip
   unzip xii.zip -d ./
-  mv -f /home/xii/linux/* ./
+  mv -f /home/xii/linu*/* ./
   rm -rf /home/xii/release
   rm -f /home/xii/xii.zip
   if [ Location == "world" ] ; then
