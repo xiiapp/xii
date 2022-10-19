@@ -25,10 +25,10 @@ else
   exit 1
 fi
 }
-xiiapp
+
 Minfo(){
   CPU=$(uname -a)
-if [[ "$CPU" =~ "aarch64" ]]; then
+if [[ "$CPU" =~ "arm64" ]]; then
   S=_arm
   url=https://github.com/xiiapp/xii/raw/main/release/xii_mac_arm.zip
 elif  [[ "$CPU" =~ "x86_64" ]]; then
@@ -121,6 +121,7 @@ Minstall(){
 
   mkdir xii
   cd xii
+  echo "$url"
   wget -c "$url"  -O xii.zip
   unzip xii.zip -d ./
   mv -f ~/xii/mac"$S"/* ./
