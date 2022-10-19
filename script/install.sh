@@ -1,63 +1,68 @@
 #!/bin/bash
 
-# Location variables
-Location="world"
-if [ "$1" == "china" ] ; then
-  Location=$1
-elif [ "$2" == "china" ] ; then
-  Location=$1
-fi
+red() {
+  echo -e "\033[31m\033[01m$1\033[0m"
+}
 
-# 架构
-S=""
-if [ "$1" == "arm" ] ; then
-  S="_arm"
-elif [ "$2" == "arm" ] ; then
-  S="_arm"
-fi
+green() {
+  echo -e "\033[32m\033[01m$1\033[0m"
+}
 
-if [ "$1" == "arm64" ] ; then
-  S="_arm64"
-elif [ "$2" == "arm64" ] ; then
-  S="_arm64"
-fi
-
-
-
-
-# Install wget & curl
-if command -v wget >/dev/null 2>&1; then
-  echo 'wget already installed.Exit'
+Linfo(){
+  green "Checking System..."
+  CPU=$(uname -a)
+if [[ "$CPU" =~ "aarch64" ]]; then
+  S=_arm64
+  url=https://github.com/xiiapp/xii/raw/main/release/xii_linux_arm64.zip
+elif [[ "$CPU" =~ "arm" ]]; then
+  S=_arm
+  url=https://github.com/xiiapp/xii/raw/main/release/xii_linux_arm.zip
+elif [[ "$CPU" =~ "x86_64" ]]; then
+  S=
+  url=https://github.com/xiiapp/xii/raw/main/release/xii_linux.zip
 else
-  yum install -y wget
-  apt-get install -y wget
-  apk add wget
+  red "脚本不支持此服务器架构,请尝试手动安装"
+  exit 1
 fi
-
-if command -v curl >/dev/null 2>&1; then
-  echo 'curl already installed.Exit'
-else
-  yum install -y curl
-  apt-get install -y curl
-  apk add curl
+}
+xiiapp
+Minfo(){
+  CPU=$(uname -a)
+if [[ "$CPU" =~ "aarch64" ]]; then
+  S=_arm
+  url=https://github.com/xiiapp/xii/raw/main/release/xii_mac_arm.zip
+elif  [[ "$CPU" =~ "x86_64" ]]; then
+  S=
+  url=https://github.com/xiiapp/xii/raw/main/release/xii_mac.zip
 fi
+}
 
-if command -v unzip >/dev/null 2>&1; then
-  echo 'unzip already installed.Exit'
+cncheck(){
+  green "Checking Internet"
+  ipcheck=$(curl -s "ipinfo.io")
+  cn=$(echo $ipcheck | grep "CN" )
+if [ -n "$cn" ];then
+  echo "当前为大陆环境，使用镜像源安装"
+  durl="get.daocloud.io/docker"
+  curl="dn-dao-github-mirror.daocloud.io"
 else
-  yum install -y unzip
-  apt-get install -y unzip
-  apk add unzip
+  durl="get.docker.com"
+  curl="github.com"
+  Location="world"
 fi
+}
 
-
-
-# Install docker
-if command -v docker >/dev/null 2>&1; then
-  echo 'Docker already installed.Exit'
-else
-  curl -fsSL get.docker.com -o get-docker.sh
-  sh get-docker.sh --mirror Aliyun
+docker(){
+  green "Checking docker"
+  docker=$(command -v docker)
+  compose=$(command -v docker-compose)
+  # [[ -z $(docker -v 2>/dev/null) ]] && docker="False"
+  # [[ -n $(docker -v 2>/dev/null) ]] && green "docker:Installed"
+  # [[ -z $(docker-compose -v 2>/dev/null) ]] && docker-compose="False"
+  # [[ -n $(docker-compose -v 2>/dev/null) ]] && green "docker-compose:Installed"
+if [[ -z "$docker" ]]; then
+  green "Start installing docker"
+  curl -sSL $durl | sh
   systemctl enable docker
   systemctl start docker
   groupadd docker
@@ -65,25 +70,49 @@ else
       usermod -aG docker $USER
   fi
 fi
-
-
-# Install the docker-compose
-if command -v docker-compose >/dev/null 2>&1; then
-  echo 'docker-compose already installed.'
-else
-  if [ "$Location" == "china" ] ; then
-    curl -L "https://get.daocloud.io/docker/compose/releases/download/v2.11.2/docker-compose-$(uname -s)-$(uname -m)" > /usr/local/bin/docker-compose
-  else
-    curl -L "https://github.com/docker/compose/releases/download/v2.11.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-  fi
- chmod +x /usr/local/bin/docker-compose
- ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+if [[ -z "$compose" ]]; then
+    curl -L "${curl}/docker/compose/releases/download/v2.12.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+    chmod +x /usr/local/bin/docker-compose
 fi
+}
 
+depend(){
+  green "Checking depend"
+depends=("curl" "wget" "unzip" "sudo")
+depend=""
+for i in "${!depends[@]}"; do
+  now_depend="${depends[$i]}"
+  if [ ! -x "$(command -v $now_depend 2>/dev/null)" ]; then
+    echo "$now_depend 未安装"
+    depend="$now_depend $depend"
+  fi
+done
+if [ "$depend" ]; then
+  if [ -x "$(command -v apk 2>/dev/null)" ]; then
+    echo "apk包管理器,正在尝试安装依赖:$depend"
+    apk --no-cache add $depend $proxy >>/dev/null 2>&1
+  elif [ -x "$(command -v apt-get 2>/dev/null)" ]; then
+    echo "apt-get包管理器,正在尝试安装依赖:$depend"
+    apt -y install $depend >>/dev/null 2>&1
+  elif [ -x "$(command -v yum 2>/dev/null)" ]; then
+    echo "yum包管理器,正在尝试安装依赖:$depend"
+    yum -y install $depend >>/dev/null 2>&1
+  else
+    red "未找到合适的包管理工具,请手动安装:$depend"
+    exit 1
+  fi
+  for i in "${!depends[@]}"; do
+    now_depend="${depends[$i]}"
+    if [ ! -x "$(command -v $now_depend)" ]; then
+      red "$now_depend 未成功安装,请尝试手动安装!"
+      exit 1
+    fi
+  done
+fi
+}
 
-
-# Create Floder
-if [ "$(uname)" == "Darwin" ] ; then
+Minstall(){
+  green "MacOS:Start installing xii"
   cd ~
 
   if [  -d "xii" ] ; then
@@ -92,12 +121,6 @@ if [ "$(uname)" == "Darwin" ] ; then
 
   mkdir xii
   cd xii
-
-  url=" https://github.com/xiiapp/xii/raw/main/release/xii_mac.zip"
-  if [  -n "$S" ]; then
-    url="https://github.com/xiiapp/xii/raw/main/release/xii_mac_arm.zip"
-  fi
-
   wget -c "$url"  -O xii.zip
   unzip xii.zip -d ./
   mv -f ~/xii/mac"$S"/* ./
@@ -110,11 +133,10 @@ if [ "$(uname)" == "Darwin" ] ; then
   echo "创建软链接需要输入密码授权"
   sudo ln -s ~/xii/xii /usr/local/bin/xii
   sudo ln -s ~/xii/xii /usr/local/bin/xxi
+}
 
-
-
-
-else
+Linstall(){
+  green "Linux:Start installing xii"
   cd /home
 
   if [  -d "xii" ] ; then
@@ -122,15 +144,7 @@ else
   fi
   mkdir xii
   cd xii
-
-  url=" https://github.com/xiiapp/xii/raw/main/release/xii_linux.zip"
-  if [  -n "$S" ]; then
-    url="https://github.com/xiiapp/xii/raw/main/release/xii_linux$S.zip"
-    echo $url
-  fi
-
-#  wget -c https://github.com/xiiapp/xii/raw/main/release/xii_linux.zip  -O xii.zip
-  wget -c $url  -O xii.zip
+  wget -c "$url"  -O xii.zip
   unzip xii.zip -d ./
   mv -f /home/xii/linux"$S"/* ./
   rm -rf /home/xii/release
@@ -141,15 +155,25 @@ else
   chmod +x /home/xii/xii
   ln -s /home/xii/xii /usr/local/bin/xii
   ln -s /home/xii/xii /usr/local/bin/xxi
+}
 
+sys=$(uname -a)
+if [[ "$sys" =~ "Linux" ]]; then
+  green "System:Linux"
+Linfo
+depend
+cncheck
+docker
+Linstall
 fi
-
-
-
-
-
-
-
+if [[ "$sys" =~ "Darwin" ]]; then
+  green "System:MacOS"
+Minfo
+depend
+cncheck
+docker
+Minstall
+fi
 
 echo "  "
 echo "  "
@@ -167,5 +191,3 @@ echo "  "
 echo "  "
 echo "  "
 echo "  "
-
-# export PATH=$PATH:/home/xii/assistant or ln -s /home/xii/assistant/xii  /usr/bin/xii
