@@ -100,7 +100,7 @@ if [ "$(uname)" == "Darwin" ] ; then
 
   url=" https://github.com/xiiapp/xii/raw/main/release/xii_mac.zip"
   if [  -n "$S" ]; then
-    url=" https://github.com/xiiapp/xii/raw/main/release/xii_mac_arm.zip"
+    url="https://github.com/xiiapp/xii/raw/main/release/xii_mac_arm.zip"
   fi
 
   wget -c "$url"  -O xii.zip
@@ -130,7 +130,7 @@ else
 
   url=" https://github.com/xiiapp/xii/raw/main/release/xii_linux.zip"
   if [  -n "$S" ]; then
-    url=" https://github.com/xiiapp/xii/raw/main/release/xii_linux$S.zip"
+    url="https://github.com/xiiapp/xii/raw/main/release/xii_linux$S.zip"
   fi
 
 #  wget -c https://github.com/xiiapp/xii/raw/main/release/xii_linux.zip  -O xii.zip
