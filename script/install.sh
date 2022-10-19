@@ -130,7 +130,7 @@ else
   fi
 
 #  wget -c https://github.com/xiiapp/xii/raw/main/release/xii_linux.zip  -O xii.zip
-  wget -c "$url"  -O xii.zip
+  wget -c $url  -O xii.zip
   unzip xii.zip -d ./
   mv -f /home/xii/linux"$S"/* ./
   rm -rf /home/xii/release
