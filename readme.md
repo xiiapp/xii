@@ -1,4 +1,8 @@
-[TOC]
+# 最新changelog（1-2条）
+2022-10-19 增加对arm、arm64 架构的支持。
+
+# 群聊沟通
+Tg: [https://t.me/xii_app](https://t.me/xii_app)
 
 # 简介
 
@@ -10,7 +14,6 @@ Docker 化的 lnmp 环境及更多软件包，同时提供助手程序 xii 用�
 
 > **注：** xii 是罗马数字 12 的意思，正好有域名 xii.app ，就很随意的用了。 这会征求名。
 
-<script id="asciicast-ag7Woq3p2wc9hsFnbI4c1EzM9" src="https://asciinema.org/a/ag7Woq3p2wc9hsFnbI4c1EzM9.js" async></script>
 
 
 ## 内置软件(Docker 镜像)清单
@@ -69,7 +72,9 @@ wget -c https://raw.githubusercontent.com/xiiapp/xii/main/script/install.sh && c
 wget -c https://raw.githubusercontent.com/xiiapp/xii/main/script/install.sh && chmod +x install.sh && ./install.sh china
 ```
 
-**注：**<u>当前仅支持 mac 和 linux，暂不支持 win 系统一键安装。</u>
+**注：** <u>当前仅支持 mac 和 linux，暂不支持 win 系统一键安装。</u>
+**注：** <u> arm 或者arm64 用户，请在一键安装后面追加一个参数，` arm` 或` arm64`</u>
+
 
 ## 手动安装
 
@@ -79,9 +84,12 @@ wget -c https://raw.githubusercontent.com/xiiapp/xii/main/script/install.sh && c
 
 2. 下载安装包,下载地址二选一
 
-   > [http://xii.app/xii_mac.zip](http://xii.app/xii_mac.zip)
-   >
-   > [https://github.com/xiiapp/xii/raw/main/release/xii_linux.zip ](https://github.com/xiiapp/xii/raw/main/release/xii_linux.zip)
+   > 苹果M1/M2芯片用户请下载 arm64 版本
+   > [https://github.com/xiiapp/xii/raw/main/release/xii_mac_arm.zip ](https://github.com/xiiapp/xii/raw/main/release/xii_mac_arm.zip)
+
+   > 苹果Intel芯片用户请下载 arm64 版本
+   > [https://github.com/xiiapp/xii/raw/main/release/xii_mac.zip ](https://github.com/xiiapp/xii/raw/main/release/xii_mac.zip)
+
 
 3. 解压安装后后，手动执行 `chmod +x manual.sh && ./manual.sh` 完成安装。
 
@@ -93,9 +101,15 @@ wget -c https://raw.githubusercontent.com/xiiapp/xii/main/script/install.sh && c
 
 2. 下载安装包,下载地址二选一
 
-   > [http://xii.app/xii_linux.zip](http://xii.app/xii_linux.zip)
-   >
+   > Linux 版本
    > [https://github.com/xiiapp/xii/raw/main/release/xii_linux.zip ](https://github.com/xiiapp/xii/raw/main/release/xii_linux.zip)
+   > 
+   > Linux arm64 版本
+   > [https://github.com/xiiapp/xii/raw/main/release/xii_linux_arm64.zip ](https://github.com/xiiapp/xii/raw/main/release/xii_linux_arm64.zip)
+   >
+   > Linux arm 版本
+   > [https://github.com/xiiapp/xii/raw/main/release/xii_linux_arm.zip ](https://github.com/xiiapp/xii/raw/main/release/xii_linux_arm.zip)
+
 
 3. 解压安装后后，手动执行 `chmod +x manual.sh && ./manual.sh` 完成安装。
 
