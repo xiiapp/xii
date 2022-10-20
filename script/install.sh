@@ -150,7 +150,7 @@ Linstall(){
   mv -f /home/xii/linux"$S"/* ./
   rm -rf /home/xii/release
   rm -f /home/xii/xii.zip
-  if [ $Location == "world" ] ; then
+  if [ "$Location" == "world" ] ; then
       sed -i  's/CONTAINER_PACKAGE_URL=mirrors.ustc.edu.cn/CONTAINER_PACKAGE_URL=/g' /home/xii/repo/base/env.sample
   fi
   chmod +x /home/xii/xii
