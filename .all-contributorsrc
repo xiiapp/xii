@@ -14,6 +14,16 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "xiiapp",
+      "name": "xiiapp",
+      "avatar_url": "https://avatars.githubusercontent.com/u/109425179?v=4",
+      "profile": "https://github.com/xiiapp",
+      "contributions": [
+        "code",
+        "ideas"
+      ]
     }
   ],
   "contributorsPerLine": 7,
