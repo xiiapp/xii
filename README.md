@@ -5,6 +5,15 @@
 # 最新changelog（1-2条）
 2022-10-19 增加对arm、arm64 架构的支持。
 
+![GitHub](https://img.shields.io/github/license/xiiapp/xii?style=for-the-badge)
+![GitHub language count](https://img.shields.io/github/languages/count/xiiapp/xii?style=for-the-badge)
+![GitHub issues](https://img.shields.io/github/issues-raw/xiiapp/xii?style=for-the-badge)
+![GitHub closed issues](https://img.shields.io/github/issues-closed-raw/xiiapp/xii?style=for-the-badge)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/xiiapp/xii?style=for-the-badge)
+![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed-raw/xiiapp/xii?style=for-the-badge)
+![GitHub forks](https://img.shields.io/github/forks/xiiapp/xii?style=for-the-badge)
+
+
 # 群聊沟通
 Tg: [https://t.me/xii_app](https://t.me/xii_app)
 
@@ -15,6 +24,7 @@ Tg: [https://t.me/xii_app](https://t.me/xii_app)
 
 
 Docker 化的 lnmp 环境及更多软件包，同时提供助手程序 xii 用来快捷管理。
+
 
 > **注：** xii 是罗马数字 12 的意思，正好有域名 xii.app ，就很随意的用了。 这会征求名。
 
