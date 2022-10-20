@@ -151,7 +151,7 @@ Linstall(){
   rm -rf /home/xii/release
   rm -f /home/xii/xii.zip
   if [ Location == "world" ] ; then
-      sed -i "" 's/CONTAINER_PACKAGE_URL=mirrors.ustc.edu.cn/CONTAINER_PACKAGE_URL=/g' /home/xii/repo/base/env.sample
+      sed -i  's/CONTAINER_PACKAGE_URL=mirrors.ustc.edu.cn/CONTAINER_PACKAGE_URL=/g' /home/xii/repo/base/env.sample
   fi
   chmod +x /home/xii/xii
   ln -s /home/xii/xii /usr/local/bin/xii
