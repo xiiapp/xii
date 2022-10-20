@@ -1,13 +1,6 @@
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
-![GitHub](https://img.shields.io/github/license/xiiapp/xii)
-![GitHub language count](https://img.shields.io/github/languages/count/xiiapp/xii)
-![GitHub issues](https://img.shields.io/github/issues-raw/xiiapp/xii)
-![GitHub closed issues](https://img.shields.io/github/issues-closed-raw/xiiapp/xii)
-![GitHub pull requests](https://img.shields.io/github/issues-pr/xiiapp/xii)
-![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed-raw/xiiapp/xii)
-![GitHub forks](https://img.shields.io/github/forks/xiiapp/xii)
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 # 最新changelog（1-2条）
@@ -310,6 +303,7 @@ sudo gpasswd -a ${USER} docker
   <tbody>
     <tr>
       <td align="center"><a href="https://github.com/mslxi"><img src="https://avatars.githubusercontent.com/u/56199297?v=4?s=100" width="100px;" alt="mslxi"/><br /><sub><b>mslxi</b></sub></a><br /><a href="https://github.com/xiiapp/xii/commits?author=mslxi" title="Code">💻</a></td>
+      <td align="center"><a href="https://github.com/xiiapp"><img src="https://avatars.githubusercontent.com/u/109425179?v=4?s=100" width="100px;" alt="xiiapp"/><br /><sub><b>xiiapp</b></sub></a><br /><a href="https://github.com/xiiapp/xii/commits?author=xiiapp" title="Code">💻</a> <a href="#ideas-xiiapp" title="Ideas, Planning, & Feedback">🤔</a></td>
     </tr>
   </tbody>
 </table>
