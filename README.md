@@ -2,6 +2,13 @@
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
+![GitHub](https://img.shields.io/github/license/xiiapp/xii)
+![GitHub language count](https://img.shields.io/github/languages/count/xiiapp/xii)
+![GitHub issues](https://img.shields.io/github/issues-raw/xiiapp/xii)
+![GitHub closed issues](https://img.shields.io/github/issues-closed-raw/xiiapp/xii)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/xiiapp/xii)
+![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed-raw/xiiapp/xii)
+![GitHub forks](https://img.shields.io/github/forks/xiiapp/xii)
 
 # 最新changelog（1-2条）
 2022-10-19 增加对arm、arm64 架构的支持。
