@@ -127,7 +127,7 @@ Minstall(){
   mv -f ~/xii/mac"$S"/* ./
   rm -rf ~/xii/release
   rm -f ~/xii/xii.zip
-  if [ Location == "world" ] ; then
+  if [ "$Location" == "world" ] ; then
       sed -i ""  's/CONTAINER_PACKAGE_URL=mirrors.ustc.edu.cn/CONTAINER_PACKAGE_URL=/g' ~/xii/repo/base/env.sample
   fi
   chmod +x ~/xii/xii
