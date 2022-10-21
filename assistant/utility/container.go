@@ -74,6 +74,15 @@ func (d *Docker) DockerActionShell(action string, arg []string) {
 	}
 }
 
+// 执行 docker xxxx 命令
+func (d *Docker) DockerCmd(arg []string) {
+	cmd := exec.Command("docker", arg...)
+	cmd.Stdin = os.Stdin
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	cmd.Run()
+}
+
 // ContainerName
 //  @Description: 获取所有容器名称,不管容器是否运行
 //  @return []string
