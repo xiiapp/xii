@@ -12,6 +12,7 @@
 
 # 最新changelog（1-2条）
 2022-10-21 增加 `xii db` 命令，封装了mysql的备份还原，增删数据库的便捷操作
+
 2022-10-19 增加对arm、arm64 架构的支持。
 
 ### <font color=red>Xii 助手命令：</font>
