@@ -71,20 +71,15 @@ Docker 化的 lnmp 环境及更多软件包，同时提供助手程序 xii 用�
 
 ## 一键安装
 
-<font color=red>海外服务器：</font>
+<font color=red>复制并执行一下命令：</font>
 
 ```sh
 wget -c https://raw.githubusercontent.com/xiiapp/xii/main/script/install.sh && chmod +x install.sh && ./install.sh
 ```
 
-<font color=red>境内服务器(加速)：</font>
 
-```sh
-wget -c https://raw.githubusercontent.com/xiiapp/xii/main/script/install.sh && chmod +x install.sh && ./install.sh china
-```
 
 **注：** <u>当前仅支持 mac 和 linux，暂不支持 win 系统一键安装。</u>
-**注：** <u> arm 或者arm64 用户，请在一键安装后面追加一个参数，` arm` 或` arm64`</u>
 
 
 ## 手动安装
