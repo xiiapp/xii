@@ -11,7 +11,21 @@
 ![GitHub forks](https://img.shields.io/github/forks/xiiapp/xii)
 
 # 最新changelog（1-2条）
+2022-10-21 增加 `xii db` 命令，封装了mysql的备份还原，增删数据库的便捷操作
 2022-10-19 增加对arm、arm64 架构的支持。
+
+### <font color=red>Xii 助手命令：</font>
+
+命令：`xii db` 包括了8个常规mysql操作，主要有：
+> xii db 并不是要代替mysql的所有操作，他主要是针对最常用的场景做了处理。【参考自lnmp.org的操作】，更多功能请用专业管理软件或命令操作。
+
+- 创建备份
+- 还原/导入备份
+- 创建数据库+用户 ，删除数据库
+- 显示所有用户
+- 常用mysql操作集合提示。
+
+
 
 
 
