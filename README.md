@@ -119,8 +119,22 @@ wget -c https://raw.githubusercontent.com/xiiapp/xii/main/script/install.sh && c
 ### Linux 系统
 
 1. 确保系统安装好 docker 和 docker-compose。
+   安装docker#
+> docker官方提供了傻瓜式安装脚本，为你做好所有工作，免去了手动安装的繁琐。
+> 
+> 本文实测系统环境：debian11
+> 
+> 执行以下命令
+> 
+> 2023-03-07更新
+> 
+> 不知道从什么时候开始官方脚本已经默认也安装了 docker compose,不需要后面的手动安装了
+> 
+> 注意是 docker compose 而不是 docker-compose. 执行命令时候也没有这个杠
 
-2. 下载安装包,下载地址二选一
+`curl -fsSL https://get.docker.com | bash -s docker`
+
+3. 下载安装包,下载地址二选一
 
    > Linux 版本
    > [https://github.com/xiiapp/xii/raw/main/release/xii_linux.zip ](https://github.com/xiiapp/xii/raw/main/release/xii_linux.zip)
@@ -132,9 +146,9 @@ wget -c https://raw.githubusercontent.com/xiiapp/xii/main/script/install.sh && c
    > [https://github.com/xiiapp/xii/raw/main/release/xii_linux_arm.zip ](https://github.com/xiiapp/xii/raw/main/release/xii_linux_arm.zip)
 
 
-3. 解压安装后后，手动执行 `chmod +x manual.sh && ./manual.sh` 完成安装。
+4. 解压安装后后，手动执行 `chmod +x manual.sh && ./manual.sh` 完成安装。
 
-4. 注意检测 docker 是否启动，在 docker 启动的情况下，可以执行后续命令。
+5. 注意检测 docker 是否启动，在 docker 启动的情况下，可以执行后续命令。
 
 # 卸载
 
